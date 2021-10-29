@@ -21,9 +21,17 @@ void removeFromInProgressList(InProgressList *ipl, Pesanan p);
 /* I.S. InProgressList ipl dan Pesanan p terdefinisi, Pesanan p ada di dalam InProgressList */
 /* F.S. Pesanan p dihapuskan dari InProgressList ipl */
 
-void removeExpiredPerishibles(InProgressList *ipl);
+void removeExpiredPerishables(InProgressList *ipl);
 /* I.S. InProgressList ipl terdefinisi */
-/* F.S. Pesanan p yang itemnya berupa perishable dan durasinya sudah mencapai 0 atau -1 dihapus dari ipl */
+/* F.S. Pesanan yang itemnya berupa perishable dan durasinya sudah mencapai 0 atau -1 dihapus dari ipl */
+
+void reduceAllPerishablesTime(InProgressList *ipl);
+/* I.S. InProgressList ipl terdefinisi */
+/* F.S. Pesanan di ipl yang merupakan perishable durasinya akan dikurangi 1 */
+
+void changePerishableTime(InProgressList *ipl, Pesanan p, int time);
+/* I.S. ipl, p, dan time terdefinisi. p merupakan item perishable */
+/* F.S. Pesanan p di ipl diganti durasinya dengan time */
 
 void displayInProgressList(InProgressList ipl);
 /* I.S. InProgressList ipl terdefinisi */
