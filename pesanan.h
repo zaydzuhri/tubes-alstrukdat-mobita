@@ -5,6 +5,7 @@
 #define PESANAN_H
 
 #include "boolean.h"
+#include "location.h"
 
 typedef struct {
     Location pickUpLocation;
@@ -22,7 +23,7 @@ typedef struct {
 #define JENIS_ITEM(p) (p).jenisItem
 #define WAKTU_HANGUS(p) (p).waktuHangus
 
-void createPesanan (Pesanan *p, Location pul, Location dol, char ji, int wh);
+void createPesanan(Pesanan *p, Location pul, Location dol, char ji, int wh);
 /* I.S. Pesanan p sembarang. pul, dol, ji, dan wh terdefinisi. */
 /* F.S. Pesanan p terdefinisi berdasarkan parameter prosedur */
 /* Jika jenis barang bukan perishable item, wh diset ke -99 */
