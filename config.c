@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void readConfig(char fileName[20], ListLoc *listLoc, int *mapRows, int *mapCols, Matrix *adjMat) {
+void readConfig(char fileName[20], ListLoc *listLoc, int *mapRows, int *mapCols, Matrix *adjMat, DaftarPesanan *daftarPesanan) {
     FILE *file;
     file = fopen(fileName, "r");
     startWordFile(file);
@@ -45,4 +45,30 @@ void readConfig(char fileName[20], ListLoc *listLoc, int *mapRows, int *mapCols,
 
     advWordFile();
     int pNum = atoi(input);
+
+    for (int pCount = 0; pCount < pNum; pCount++) {
+        advWordFile();
+        int waktuMasuk = atoi(input);
+        advWordFile();
+        char puLocName = input[0];
+        Location puLoc;
+        getLocationFromList(*listLoc, &puLoc, puLocName);
+        advWordFile();
+        char doLocName = input[0];
+        Location doLoc;
+        getLocationFromList(*listLoc, &doLoc, doLocName);
+        advWordFile();
+        char jenisItem = input[0];
+        PendingPesanan pPesanan;
+        if (jenisItem == 'P') {
+            advWordFile();
+            int waktuHangus = atoi(input);
+            createPendingPesanan(&pPesanan, waktuMasuk, pCount, puLoc, doLoc, jenisItem, waktuHangus);
+        } else {
+            createPendingPesanan(&pPesanan, waktuMasuk, pCount, puLoc, doLoc, jenisItem, -99);
+        }
+        enqueueDaftarPesanan(daftarPesanan, pPesanan);
+    }
+
+    fclose(file);
 }

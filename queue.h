@@ -5,8 +5,8 @@
 #define QUEUE_H
 
 #include "boolean.h"
-#include "pesanan.h"
 #include "location.h"
+#include "pesanan.h"
 
 #define IDX_UNDEF -1
 #define CAPACITY 30
@@ -18,12 +18,10 @@ typedef struct {
 } PendingPesanan;
 
 typedef struct {
-	PendingPesanan buffer[CAPACITY]; 
-	int idxHead;
-	int idxTail;
+    PendingPesanan buffer[CAPACITY];
+    int idxHead;
+    int idxTail;
 } Queue;
-
-
 
 /* ********* AKSES PendingPesanan (Selektor) ********* */
 /* Jika p adalah PendingPesanan, maka akses elemen : */
@@ -34,11 +32,11 @@ typedef struct {
 /* Jika q adalah Queue, maka akses elemen : */
 #define IDX_HEAD(q) (q).idxHead
 #define IDX_TAIL(q) (q).idxTail
-#define     HEAD(q) (q).buffer[(q).idxHead]
-#define     TAIL(q) (q).buffer[(q).idxTail]
+#define HEAD(q) (q).buffer[(q).idxHead]
+#define TAIL(q) (q).buffer[(q).idxTail]
 
 /* Kreator Elemen */
-void createPendingPesanan(Pesanan *p, int wm, int kp, Location pul, Location dol, char ji, int wh);
+void createPendingPesanan(PendingPesanan *p, int wm, int kp, Location pul, Location dol, char ji, int wh);
 /* I.S. Pesanan p sembarang. wm, kp, pul, dol, ji, dan wh terdefinisi. */
 /* F.S. Pesanan p terdefinisi berdasarkan parameter prosedur */
 /* Jika jenis barang bukan perishable item, wh diset ke -99 */

@@ -15,7 +15,7 @@
 void CreateListLoc(ListLoc *l, int capacity) {
     BUFFER(*l) = (ElTypeLoc *)malloc(capacity * sizeof(ElTypeLoc));
     NEFF(*l) = 0;
-    CAPACITY(*l) = capacity;
+    LISTLOCCAP(*l) = capacity;
 }
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
@@ -23,10 +23,10 @@ void CreateListLoc(ListLoc *l, int capacity) {
 void dealocate(ListLoc *l) {
     free(BUFFER(*l));
     NEFF(*l) = 0;
-    CAPACITY(*l) = 0;
+    LISTLOCCAP(*l) = 0;
 }
 /* I.S. l terdefinisi; */
-/* F.S. (l) dikembalikan ke system, CAPACITY(l)=0; NEFF(l)=0 */
+/* F.S. (l) dikembalikan ke system, LISTLOCCAP(l)=0; NEFF(l)=0 */
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
@@ -37,6 +37,11 @@ int lengthListLoc(ListLoc l) {
 /* Mengirimkan nol jika list l kosong */
 /* *** Daya tampung container *** */
 
+void getLocationFromList(ListLoc l, Location *loc, char locName) {
+    LOC_NAME(*loc) = LOC(l, indexOfListLoc(l, locName)).locName;
+    LOC_POS(*loc) = LOC(l, indexOfListLoc(l, locName)).locPosition;
+}
+
 /* *** Selektor INDEKS *** */
 IdxType getLastIdxListLoc(ListLoc l) {
     return NEFF(l) - 1;
@@ -46,7 +51,7 @@ IdxType getLastIdxListLoc(ListLoc l) {
 
 /* ********** Test Indeks yang valid ********** */
 boolean isIdxValidListLoc(ListLoc l, int i) {
-    return i >= 0 && i < CAPACITY(l);
+    return i >= 0 && i < LISTLOCCAP(l);
 }
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas list l */
 /* yaitu antara indeks yang terdefinisi utk container*/
@@ -64,7 +69,7 @@ boolean isEmptyListLoc(ListLoc l) {
 /* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
 /* *** Test list penuh *** */
 boolean isFullListLoc(ListLoc l) {
-    return NEFF(l) == CAPACITY(l);
+    return NEFF(l) == LISTLOCCAP(l);
 }
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 
@@ -74,7 +79,7 @@ void readListLoc(ListLoc *l) {
     int n;
     do {
         scanf("%d", &n);
-    } while (!(n >= 0 && n <= CAPACITY(*l)));
+    } while (!(n >= 0 && n <= LISTLOCCAP(*l)));
 
     ElTypeLoc element;
     for (int i = 0; i < n; i++) {
@@ -87,9 +92,9 @@ void readListLoc(ListLoc *l) {
 /* F.S. List l terdefinisi */
 /* Proses : membaca banyaknya elemen l dan mengisi nilainya */
 /* 1. Baca banyaknya elemen diakhiri enter, misalnya N */
-/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= CAPACITY(l) */
+/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= LISTLOCCAP(l) */
 /*    Jika N tidak valid, tidak diberikan pesan kesalahan */
-/* 2. Jika 0 < N <= CAPACITY(l); Lakukan N kali: Baca elemen mulai dari indeks
+/* 2. Jika 0 < N <= LISTLOCCAP(l); Lakukan N kali: Baca elemen mulai dari indeks
       0 satu per satu diakhiri enter */
 /*    Jika N = 0; hanya terbentuk l kosong */
 void displayListLoc(ListLoc l) {
@@ -112,14 +117,14 @@ void displayListLoc(ListLoc l) {
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */
-IdxType indexOfListLoc(ListLoc l, ElTypeLoc val) {
+IdxType indexOfListLoc(ListLoc l, char locName) {
     int i = 0;
     boolean found = false;
     if (!isEmptyListLoc(l)) {
-        found = (isSameLoc(LOC(l, i), val));
+        found = (LOC(l, 0).locName == locName);
         while (!found && (i < lengthListLoc(l))) {
             i += 1;
-            found = (isSameLoc(LOC(l, i), val));
+            found = (LOC(l, i).locName == locName);
         }
     }
     return (found ? i : IDX_UNDEF);
@@ -132,7 +137,7 @@ IdxType indexOfListLoc(ListLoc l, ElTypeLoc val) {
 
 /* ********** OPERASI LAIN ********** */
 void copyListLoc(ListLoc lIn, ListLoc *lOut) {
-    CreateListLoc(lOut, CAPACITY(lIn));
+    CreateListLoc(lOut, LISTLOCCAP(lIn));
     for (int i = 0; i < lengthListLoc(lIn); i++) {
         LOC(*lOut, i) = LOC(lIn, i);
         NEFF(*lOut) += 1;
@@ -145,7 +150,7 @@ void copyListLoc(ListLoc lIn, ListLoc *lOut) {
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
 void insertLastListLoc(ListLoc *l, ElTypeLoc val) {
-    if (lengthListLoc(*l) != CAPACITY(*l)) {
+    if (lengthListLoc(*l) != LISTLOCCAP(*l)) {
         LOC(*l, NEFF(*l)) = val;
         NEFF(*l) += 1;
     }
@@ -171,7 +176,7 @@ void growListLoc(ListLoc *l, int num) {
     ListLoc new;
     copyListLoc(*l, &new);
     dealocate(l);
-    CreateListLoc(l, CAPACITY(new) + num);
+    CreateListLoc(l, LISTLOCCAP(new) + num);
     for (int i = 0; i < lengthListLoc(new); i++) {
         LOC(*l, i) = LOC(new, i);
         NEFF(*l) += 1;
@@ -186,14 +191,14 @@ void shrinkListLoc(ListLoc *l, int num) {
     ListLoc new;
     copyListLoc(*l, &new);
     dealocate(l);
-    CreateListLoc(l, CAPACITY(new) - num);
+    CreateListLoc(l, LISTLOCCAP(new) - num);
     for (int i = 0; i < lengthListLoc(new); i++) {
         LOC(*l, i) = LOC(new, i);
     }
-    if (num <= (CAPACITY(new) - lengthListLoc(new))) {
+    if (num <= (LISTLOCCAP(new) - lengthListLoc(new))) {
         NEFF(*l) = lengthListLoc(new);
     } else {
-        NEFF(*l) = CAPACITY(*l);
+        NEFF(*l) = LISTLOCCAP(*l);
     };
     dealocate(&new);
 }
