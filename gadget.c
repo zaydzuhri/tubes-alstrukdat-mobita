@@ -56,7 +56,7 @@ boolean hasGadget(GadgetList IG, Gadget g){
     (gadget g ada di inventory) */
     /* KAMUS */
     /* ALGORITMA */
-    return indexOf(IG,g)!=IDX_UNDEF;
+    return indexOfListPos(IG,g)!=IDX_UNDEF;
 }
 
 void addGadget(GadgetList *IG, Gadget g){
@@ -64,7 +64,7 @@ void addGadget(GadgetList *IG, Gadget g){
 // F.S. g ditambahkan ke inventory 
     /* KAMUS */
     /* ALGORITMA */
-    insertLast(IG,g);
+    insertLastListPos(IG,g);
     printf("%s berhasil ditambahkan\n", getGadgetName(g));
 }
 
@@ -74,7 +74,7 @@ void removeGadget(GadgetList *IG, int idx){
     /* KAMUS */
     ElType val;
     /* ALGORITMA */
-    deleteAt(IG, &val,idx);
+    deleteAtListPos(IG, &val,idx);
 }
 
 void useGadget(GadgetList *IG){
@@ -84,12 +84,17 @@ void useGadget(GadgetList *IG){
     /* KAMUS */
     int idx;
     /* ALGORITMA */
-    printf("Gadget mana yang ingin dipakai? (ketik 0 jika ingin kembali)\n\n");
+    printf("Gadget mana yang ingin dipakai? (ketik 0 jika ingin kembali)\n\nENTER COMMAND : ");
 
-    scanf("%d",idx);
-    if(isIdxEff(*IG,idx)){
-        printf("%s berhasil dipakai\n",getGadgetName(ELMT(*IG,idx)));
-        removeGadget(IG,idx);
+    startWord();
+    if(currentWord.length == 1){
+        idx = currentWord.contents[0] - '1';
+        if(isIdxEffListPos(*IG,idx)){
+            printf("%s berhasil dipakai\n",getGadgetName(ELMTListPos(*IG,idx)));
+            removeGadget(IG,idx);
+        }else{
+            printf("Gadget tidak ditemukan.\n");
+        }
     }else{
         printf("Gadget tidak ditemukan.\n");
     }
@@ -128,7 +133,7 @@ void buyGadget(GadgetList *IG, int *money){
         g = currentWord.contents[0] - '0';
         if(g<=0 || g>5){
             printf("Invalid Input!\n");
-        }else if(isFull(*IG)){
+        }else if(isFullListPos(*IG)){
             printf("Inventory penuh, pembelian gagal\n");
         }else if(getHargaGadget(g) > *money){
             printf("Uang Anda tidak cukup untuk membeli gadget!\n");
@@ -152,8 +157,8 @@ void displayInventory(GadgetList *IG){
     int i;
     /* ALGORITMA */
     for(i=0; i<LISTPOS_CAPACITY; i++){
-        if(isIdxEff(*IG,i)){
-            printf("%d. %s\n",i+1, getGadgetName(ELMT(*IG,i)));
+        if(isIdxEffListPos(*IG,i)){
+            printf("%d. %s\n",i+1, getGadgetName(ELMTListPos(*IG,i)));
         }else{
             printf("%d. -\n",i+1);
         }

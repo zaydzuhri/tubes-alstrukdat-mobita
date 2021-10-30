@@ -11,13 +11,13 @@ void CreateListPos(ListPos *l){
     int i;
     /* ALGORITMA */
     for(i=0; i<LISTPOS_CAPACITY; i++){
-        (*l).contents[i] = VAL_UNDEF;
+        ELMTListPos(*l,i) = VAL_UNDEF;
     }
 }
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
-int length(ListPos l){
+int lengthListPos(ListPos l){
 /* Mengirimkan banyaknya elemen efektif List */
 /* Mengirimkan nol jika List kosong */
     /* KAMUS */
@@ -28,7 +28,7 @@ int length(ListPos l){
     i = 0;
     isMarkFound = false;
     while (!isMarkFound && len < LISTPOS_CAPACITY){
-        if(l.contents[i] == VAL_UNDEF){
+        if(ELMTListPos(l,i) == VAL_UNDEF){
             isMarkFound = true;
         }else{
             len++;
@@ -40,7 +40,7 @@ int length(ListPos l){
 }
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxValid(ListPos l, int i){
+boolean isIdxValidListPos(ListPos l, int i){
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas List l */
 /* yaitu antara indeks yang terdefinisi utk container*/
     /* KAMUS */
@@ -48,33 +48,33 @@ boolean isIdxValid(ListPos l, int i){
     return i >= 0 && i < LISTPOS_CAPACITY;
 }
 
-boolean isIdxEff(ListPos l, int i){
+boolean isIdxEffListPos(ListPos l, int i){
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
 /* yaitu antara 0..length(l)-1 */
     /* KAMUS */
     /* ALGORITMA */
-    return i >= 0 && i < length(l);
+    return i >= 0 && i < lengthListPos(l);
 }
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test List kosong *** */
-boolean isEmpty(ListPos l){
+boolean isEmptyListPos(ListPos l){
 /* Mengirimkan true jika List l kosong, mengirimkan false jika tidak */
     /* KAMUS */
     /* ALGORITMA */
-    return length(l) == 0;
+    return lengthListPos(l) == 0;
 }
 /* *** Test List penuh *** */
-boolean isFull(ListPos l){
+boolean isFullListPos(ListPos l){
 /* Mengirimkan true jika List l penuh, mengirimkan false jika tidak */
     /* KAMUS */
     /* ALGORITMA */
-    return length(l) == LISTPOS_CAPACITY;
+    return lengthListPos(l) == LISTPOS_CAPACITY;
 }
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi List dari pembacaan *** */
-void readList(ListPos *l){
+void readListPos(ListPos *l){
 /* I.S. l sembarang */
 /* F.S. List l terdefinisi */
 /* Proses: membaca banyaknya elemen l dan mengisi nilainya */
@@ -95,10 +95,10 @@ void readList(ListPos *l){
 
     for(i = 0; i < num_of_elmt; i++){
         scanf("%d", &input_number);
-        (*l).contents[i] = input_number;
+        ELMTListPos(*l,i) = input_number;
     }
 }
-void displayList(ListPos l){
+void displayListPos(ListPos l){
 /* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung 
    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
@@ -110,16 +110,16 @@ void displayList(ListPos l){
     int i;
     /* ALGORITMA */
     printf("[");
-    for(i = 0; i<length(l); i++){
-        printf("%d",l.contents[i]);
-        if(i != length(l)-1) printf(",");
+    for(i = 0; i<lengthListPos(l); i++){
+        printf("%d",ELMTListPos(l,i));
+        if(i != lengthListPos(l)-1) printf(",");
     }
     printf("]");
 }
 
 /* ********** OPERATOR ARITMATIKA ********** */
 /* *** Aritmatika List : Penjumlahan, pengurangan, perkalian, ... *** */
-ListPos plusMinusTab(ListPos l1, ListPos l2, boolean plus){
+ListPos plusMinusTabListPos(ListPos l1, ListPos l2, boolean plus){
 /* Prekondisi : l1 dan l2 berukuran sama dan tidak kosong */
 /* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada 
        indeks yang sama dijumlahkan */
@@ -130,27 +130,27 @@ ListPos plusMinusTab(ListPos l1, ListPos l2, boolean plus){
     ListPos l3;
     /* ALGORITMA */
     CreateListPos(&l3);
-    for(i=0; i<length(l1); i++){
-        if(plus) l3.contents[i] = l1.contents[i] + l2.contents[i];
-        else l3.contents[i] = l1.contents[i] - l2.contents[i];
+    for(i=0; i<lengthListPos(l1); i++){
+        if(plus) ELMTListPos(l3,i) = ELMTListPos(l1,i) + ELMTListPos(l2,i);
+        else ELMTListPos(l3,i) = ELMTListPos(l1,i) - ELMTListPos(l2,i);
     }
     return l3;
 }
 
 /* ********** OPERATOR RELASIONAL ********** */
 /* *** Operasi pembandingan List: *** */
-boolean isListEqual(ListPos l1, ListPos l2){
+boolean isListPosEqual(ListPos l1, ListPos l2){
 /* Mengirimkan true jika l1 sama dengan l2 yaitu jika ukuran l1 = l2 dan semua 
    elemennya sama */
     /* KAMUS */
     int i,len;
     boolean isEqual = true;
     /* ALGORITMA */
-    if (length(l1)==length(l2)){
+    if (lengthListPos(l1)==lengthListPos(l2)){
         i = 0;
-        len = length(l1);
+        len = lengthListPos(l1);
         while(isEqual && i<len){
-            isEqual = l1.contents[i] == l2.contents[i];
+            isEqual = ELMTListPos(l1,i) == ELMTListPos(l2,i);
             i++;
         }
         return isEqual;
@@ -161,7 +161,7 @@ boolean isListEqual(ListPos l1, ListPos l2){
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */
-int indexOf(ListPos l, ElType val){
+int indexOfListPos(ListPos l, ElType val){
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
@@ -170,10 +170,10 @@ int indexOf(ListPos l, ElType val){
     int len, i;
     boolean isFound = false;
     /* ALGORITMA */
-    len = length(l);
+    len = lengthListPos(l);
     i = 0;
-    while (l.contents[i] != VAL_UNDEF && !isFound){
-        isFound = l.contents[i] == val;
+    while (ELMTListPos(l,i) != VAL_UNDEF && !isFound){
+        isFound = ELMTListPos(l,i) == val;
         i++;
     }
     if (isFound) return i-1;
@@ -181,38 +181,38 @@ int indexOf(ListPos l, ElType val){
 }
 
 /* ********** NILAI EKSTREM ********** */
-void extremes(ListPos l, ElType *max, ElType *min){
+void extremesListPos(ListPos l, ElType *max, ElType *min){
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
     /* KAMUS */
     int i;
     /* ALGORITMA */
-    *max = l.contents[0];
-    *min = l.contents[0];
-    for(i=1; i<length(l); i++){
-        if(l.contents[i]>*max) *max = l.contents[i];
-        if(l.contents[i]<*min) *min = l.contents[i];
+    *max = ELMTListPos(l,0);
+    *min = ELMTListPos(l,0);
+    for(i=1; i<lengthListPos(l); i++){
+        if(ELMTListPos(l,i)>*max) *max = ELMTListPos(l,i);
+        if(ELMTListPos(l,i)<*min) *min = ELMTListPos(l,i);
     }
 }
 
 /* ********** OPERASI LAIN ********** */
-boolean isAllEven(ListPos l){
+boolean isAllEvenListPos(ListPos l){
 /* Menghailkan true jika semua elemen l genap */
     /* KAMUS */
     boolean isOddFound = false;
     int i;
     /* ALGORITMA */
     i=0;
-    while (!isOddFound && i<length(l)){
-        isOddFound = l.contents[i]%2 == 1;
+    while (!isOddFound && i<lengthListPos(l)){
+        isOddFound = ELMTListPos(l,i)%2 == 1;
         i++;
     }
     return !isOddFound;
 }
 
 /* ********** SORTING ********** */
-void sort(ListPos *l, boolean asc){
+void sortListPos(ListPos *l, boolean asc){
 /* I.S. l boleh kosong */
 /* F.S. Jika asc = true, l terurut membesar */
 /*      Jika asc = false, l terurut mengecil */
@@ -222,13 +222,13 @@ void sort(ListPos *l, boolean asc){
     int i,j, len;
     ElType tmp;
     /* ALGORITMA */
-    len = length(*l);
+    len = lengthListPos(*l);
     for(int i=0; i<len; i++){
         for(int j=i+1; j<len; j++){
-            if ((asc && (*l).contents[i]>(*l).contents[j]) || (!asc && (*l).contents[i]<(*l).contents[j])){
-                tmp = (*l).contents[i];
-                (*l).contents[i] = (*l).contents[j];
-                (*l).contents[j] = tmp;
+            if ((asc && ELMTListPos(*l,i)>ELMTListPos(*l,j)) || (!asc && ELMTListPos(*l,i)<ELMTListPos(*l,j))){
+                tmp = ELMTListPos(*l,i);
+                ELMTListPos(*l,i) = ELMTListPos(*l,j);
+                ELMTListPos(*l,j) = tmp;
             }
         }
     }
@@ -236,7 +236,7 @@ void sort(ListPos *l, boolean asc){
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertLast(ListPos *l, ElType val){
+void insertLastListPos(ListPos *l, ElType val){
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
@@ -244,13 +244,13 @@ void insertLast(ListPos *l, ElType val){
     int i;
     /* ALGORITMA */
     i = 0;
-    while((*l).contents[i] != VAL_UNDEF){
+    while(ELMTListPos(*l,i) != VAL_UNDEF){
         i++;
     }
-    (*l).contents[i] = val;
+    ELMTListPos(*l,i) = val;
 }
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLast(ListPos *l, ElType *val){
+void deleteLastListPos(ListPos *l, ElType *val){
 /* Proses : Menghapus elemen terakhir List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
@@ -260,14 +260,14 @@ void deleteLast(ListPos *l, ElType *val){
     int i;
     /* ALGORITMA */
     i = 0;
-    while((*l).contents[i] != VAL_UNDEF){
+    while(ELMTListPos(*l,i) != VAL_UNDEF){
         i++;
     }
-    *val = (*l).contents[i-1];
-    (*l).contents[i-1] = VAL_UNDEF;
+    *val = ELMTListPos(*l,i-1);
+    ELMTListPos(*l,i-1) = VAL_UNDEF;
 }
 
-void deleteAt(ListPos *l, ElType *val, int idx){
+void deleteAtListPos(ListPos *l, ElType *val, int idx){
 /* Proses : Menghapus elemen dengan indeks idx */
 /* I.S. List tidak kosong, idx merupakan indeks yang tedefinisi untuk l */
 /* F.S. val adalah nilai elemen yang dihapus */
@@ -277,10 +277,10 @@ void deleteAt(ListPos *l, ElType *val, int idx){
     int i;
     /* ALGORITMA */
     i = idx;
-    *val = ELMT(*l, idx);
-    while(isIdxEff(*l,i+1)){
-        ELMT(*l,i) = ELMT(*l,i+1);
+    *val = ELMTListPos(*l, idx);
+    while(isIdxEffListPos(*l,i+1)){
+        ELMTListPos(*l,i) = ELMTListPos(*l,i+1);
         i++;
     }
-    ELMT(*l,i) = VAL_UNDEF;
+    ELMTListPos(*l,i) = VAL_UNDEF;
 }
