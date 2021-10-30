@@ -2,6 +2,16 @@
 #include "queue.h"
 #include <stdio.h>
 
+
+/* Kreator Elemen */
+void createPendingPesanan(PendingPesanan *pp, int wm, int kp, Location pul, Location dol, char ji, int wh){
+/* I.S. Pesanan p sembarang. wm, kp, pul, dol, ji, dan wh terdefinisi. */
+/* F.S. Pesanan p terdefinisi berdasarkan parameter prosedur */
+/* Jika jenis barang bukan perishable item, wh diset ke -99 */
+    createPesanan(&PESANAN(*pp), kp, pul, dol, ji, wh);
+    WAKTU_MASUK(*pp) = wm;
+}
+
 /* *** Kreator *** */
 void CreateQueue(Queue *q){
 /* I.S. sembarang */
