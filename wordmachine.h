@@ -6,13 +6,14 @@
 
 #include "boolean.h"
 #include "charmachine.h"
+#include <stdio.h>
 
-#define CAPACITY 50
+#define CAP 50
 #define BLANK ' '
 
 typedef struct {
-   char contents[CAPACITY]; /* container penyimpan kata, indeks yang dipakai [0..CAPACITY-1] */
-   int length;
+    char contents[CAP]; /* container penyimpan kata, indeks yang dipakai [0..CAPACITY-1] */
+    int length;
 } Word;
 
 /* Word Engine State */
@@ -24,7 +25,15 @@ void ignoreBlank();
    I.S. : currentChar sembarang 
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
 
+void ignoreNewLine();
+
 void startWord();
+/* I.S. : currentChar sembarang 
+   F.S. : endWord = true, dan currentChar = MARK; 
+          atau endWord = false, currentWord adalah kata yang sudah diakuisisi,
+          currentChar karakter pertama sesudah karakter terakhir kata */
+
+void startWordFile(FILE *file);
 /* I.S. : currentChar sembarang 
    F.S. : endWord = true, dan currentChar = MARK; 
           atau endWord = false, currentWord adalah kata yang sudah diakuisisi,
@@ -36,6 +45,8 @@ void advWord();
           currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika currentChar = MARK, endWord = true.		  
    Proses : Akuisisi kata menggunakan procedure copyWord */
+
+void advWordFile();
 
 void copyWord();
 /* Mengakuisisi kata, menyimpan dalam currentWord
