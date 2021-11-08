@@ -13,6 +13,9 @@ void createDaftarPesanan(DaftarPesanan *dp);
 /* I.S. dp sembarang */
 /* F.S. dp berupa queue kosong */
 
+boolean isDaftarPesananEmpty(DaftarPesanan dp);
+/* Mengembalikan nilai true jika DaftarPesanan dp kosong, mengembalikan false jika tidak kosong */
+
 void enqueueDaftarPesanan(DaftarPesanan *dp, PendingPesanan p);
 /* I.S. DaftarPesanan dp terdefinisi */
 /* F.S. PendingPesanan p ditambahkan ke dp sesuai dengan urutan waktu masuknya */
@@ -25,5 +28,9 @@ void dequeueDaftarPesanan(DaftarPesanan *dp, PendingPesanan *p);
 int getOriginalWaktuHangus(DaftarPesanan dp, Pesanan p);
 /* Mengembalikan waktuHangus awal Pesanan p yang datanya tersimpan pada DaftarPesanan dp */
 /* Prekondisi: data Pesanan p selalu ada di dp */
+
+void displayDaftarPesanan(DaftarPesanan dp);
+/* I.S. DaftarPesanan dp terdefinisi */
+/* F.S. Isi dari DaftarPesanan dp ditampilkan ke layar */
 
 #endif

@@ -6,13 +6,13 @@
 void createLinkedList(LinkedList *l){
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
-    *l = NULL;
+    FIRST(*l) = NULL;
 }
 
 /****************** TEST LIST KOSONG ******************/
 boolean isLinkedListEmpty(LinkedList l){
 /* Mengirim true jika list kosong */
-    return l == NULL;
+    return FIRST(l) == NULL;
 }
 
 /****************** GETTER SETTER ******************/
@@ -23,7 +23,7 @@ Pesanan getLinkedListElmt(LinkedList l, int idx){
     Address p;
 
     /* ALGORITMA */ 
-    p = l;
+    p = FIRST(l);
     for (int i = 0; i < idx; i++) {
         p = NEXT(p);
     }
@@ -37,7 +37,7 @@ void setLinkedListElmt(LinkedList *l, int idx, Pesanan val){
     Address p;
 
     /* ALGORITMA */
-    p = *l;
+    p = FIRST(*l);
     for (int i = 0; i < idx; i++) {
         p = NEXT(p);
     }
@@ -60,7 +60,7 @@ int indexOfLinkedList(LinkedList l, Pesanan val){
         return IDX_UNDEF;
     }
     else {
-        p = l;
+        p = FIRST(l);
         idx = 0;
         elmtFound = false;
 
@@ -96,8 +96,8 @@ void insertFirstLinkedList(LinkedList *l, Pesanan val){
     /* ALGORITMA */
     p = newNode(val);
     if (p != NULL) {
-        NEXT(p) = *l;
-        *l = p;
+        NEXT(p) = FIRST(*l);
+        FIRST(*l) = p;
     }
 }
 
@@ -116,7 +116,7 @@ void insertLastLinkedList(LinkedList *l, Pesanan val){
     else {
         p = newNode(val);
         if (p != NULL) {
-            last = *l;
+            last = FIRST(*l);
             while (NEXT(last) != NULL) {
                 last = NEXT(last);
             }
@@ -140,7 +140,7 @@ void insertAtLinkedList(LinkedList *l, Pesanan val, int idx){
     else {
         p = newNode(val);
         if (p != NULL) {
-            loc = *l;
+            loc = FIRST(*l);
             for (int i = 0; i < idx - 1; i++) {
                 loc = NEXT(loc);
             }
@@ -159,9 +159,9 @@ void deleteFirstLinkedList(LinkedList *l, Pesanan *val){
     Address p;
 
     /* ALGORITMA */
-    p = *l;
+    p = FIRST(*l);
     *val = INFO(p);
-    *l = NEXT(p);
+    FIRST(*l) = NEXT(p);
     free(p);
 }
 
@@ -173,19 +173,19 @@ void deleteLastLinkedList(LinkedList *l, Pesanan *val){
     Address p, last;
 
     /* ALGORITMA */
-    p = *l;
+    p = FIRST(*l);
     last = NULL;
 
     while (NEXT(p) != NULL) {
         last = p;
         p = NEXT(p);
     }
-    *val = INFO(p);
 
     if (last == NULL) {
-        *l = NULL;
+        deleteFirstLinkedList(l, val);
     }
     else {
+        *val = INFO(p);
         NEXT(last) = NULL;
     }
     
@@ -206,7 +206,7 @@ void deleteAtLinkedList(LinkedList *l, int idx, Pesanan *val){
     }
     else {
         i = 0;
-        loc = *l;
+        loc = FIRST(*l);
         while (i < idx - 1) {
             i++;
             loc = NEXT(loc);
@@ -224,29 +224,24 @@ void deleteAtLinkedList(LinkedList *l, int idx, Pesanan *val){
 void displayLinkedList(LinkedList l){
 // void printInfo(LinkedList l);
 /* I.S. LinkedList mungkin kosong */
-/* F.S. Jika list tidak kosong, list dicetak ke kanan: [e1,e2,...,en] */
-/* Setiap elemen ditulis dengan format (KodePesanan, PickUpLoc, DropOffLoc, JenisItem, WaktuHangus)*/
-/* Jika list kosong : menulis [] */
-/* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
+/* F.S. Jika list tidak kosong, ditampilkan atribut-atribut elemen pesanan */
+/* Jika list kosong : menulis "List kosong" */
     /* KAMUS LOKAL */
     Address p;
 
     /* ALGORITMA */
-    p = l;
-    printf("[");
+    p = FIRST(l);
 
-    while (p != NULL) {
-        //.........
-
-        if (NEXT(p) != NULL) {
-            printf(",");
-        }
-
-        p = NEXT(p);
+    if (p == NULL) {
+        printf("List kosong");
     }
-
-    printf("]");
-    
+    else {
+        do {
+            displayPesanan(INFO(p));
+            printf("\n");
+            p = NEXT(p);
+        } while (p != NULL);
+    }
 }
 
 int linkedListLength(LinkedList l){
@@ -257,7 +252,7 @@ int linkedListLength(LinkedList l){
 
     /* ALGORITMA */
     len = 0;
-    p = l;
+    p = FIRST(l);
 
     while (p != NULL) {
         len++;
@@ -280,12 +275,12 @@ LinkedList concatLinkedList(LinkedList l1, LinkedList l2){
 
     /* ALGORITMA */
     createLinkedList(&l3);
-    p = l1;
+    p = FIRST(l1);
     while (p != NULL) {
         insertLastLinkedList(&l3, INFO(p));
         p = NEXT(p);
     }
-    p = l2;
+    p = FIRST(l2);
     while (p != NULL) {
         insertLastLinkedList(&l3, INFO(p));
         p = NEXT(p);

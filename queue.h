@@ -8,7 +8,10 @@
 #include "location.h"
 #include "pesanan.h"
 
+#ifndef IDX_UNDEF
 #define IDX_UNDEF -1
+#endif
+
 #define CAPACITY 30
 
 /* Definisi elemen dan address */
@@ -36,10 +39,10 @@ typedef struct {
 #define TAIL(q) (q).buffer[(q).idxTail]
 
 /* Kreator Elemen */
-void createPendingPesanan(PendingPesanan *p, int wm, int kp, Location pul, Location dol, char ji, int wh);
-/* I.S. Pesanan p sembarang. wm, kp, pul, dol, ji, dan wh terdefinisi. */
-/* F.S. Pesanan p terdefinisi berdasarkan parameter prosedur */
-/* Jika jenis barang bukan perishable item, wh diset ke -99 */
+void createPendingPesanan(PendingPesanan *pp, int waktuMasuk, int kodePesanan, Location pickUpLocation, Location dropOffLocation, char jenisItem, int waktuHangus);
+    /* I.S. PendingPesanan pp sembarang. waktuMasuk, kodePesanan, pickUpLocation, dropOffLocation, jenisItem, dan waktuHangus terdefinisi. */
+    /* F.S. PendingPesanan pp terdefinisi berdasarkan parameter prosedur */
+    /* Jika jenis barang bukan perishable item, waktuHangus diset ke -99 */
 
 /* *** Kreator *** */
 void createQueue(Queue *q);
@@ -71,5 +74,11 @@ void dequeue(Queue *q, PendingPesanan *val);
 /* I.S. q tidak mungkin kosong */
 /* F.S. val = nilai elemen HEAD pd I.S., HEAD dan IDX_HEAD "mundur"; 
         q mungkin kosong */
+
+void displayQueue(Queue q);
+/* Proses : Menuliskan isi Queue dengan traversal */
+/* I.S. q boleh kosong */
+/* F.S. Jika q tidak kosong tampilkan isi queue ke layar */
+/* Jika Queue kosong : tampilkan pesan "Kosong" */
 
 #endif

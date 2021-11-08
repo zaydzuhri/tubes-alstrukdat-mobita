@@ -23,12 +23,16 @@ typedef struct {
 #define JENIS_ITEM(p) (p).jenisItem
 #define WAKTU_HANGUS(p) (p).waktuHangus
 
-void createPesanan(Pesanan *p, int kp, Location pul, Location dol, char ji, int wh);
-/* I.S. Pesanan p sembarang. pul, dol, ji, dan wh terdefinisi. */
+void createPesanan (Pesanan *p, int kodePesanan, Location pickUpLocation, Location dropOffLocation, char jenisItem, int waktuHangus);
+/* I.S. Pesanan p sembarang. kodePesanan, pickUpLocation, dropOffLocation, jenisItem, dan waktuHangus terdefinisi. */
 /* F.S. Pesanan p terdefinisi berdasarkan parameter prosedur */
-/* Jika jenis barang bukan perishable item, wh diset ke -99 */
+/* Jika jenis barang bukan perishable item, waktuHangus diset ke -99 */
 
 boolean isPesananIdentical(Pesanan p1, Pesanan p2);
 /* Mengembalikan true jika kodePesanan p1 = kode Pesanan p2, false jika sebaliknya */
+
+void displayPesanan(Pesanan p);
+/* I.S. Pesanan p terdefinisi */
+/* F.S. Atribut-atribut dari Pesanan p ditampilkan ke layar */
 
 #endif

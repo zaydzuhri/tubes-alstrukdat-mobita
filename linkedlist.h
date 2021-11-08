@@ -10,7 +10,9 @@
 
 typedef Address LinkedList;
 
-#define IDX_UNDEF (-1)
+#ifndef IDX_UNDEF
+#define IDX_UNDEF -1
+#endif
 #define FIRST(l) (l)
 
 /* Definisi LinkedList : */
@@ -20,7 +22,7 @@ typedef Address LinkedList;
 
 /* PROTOTYPE */
 /****************** PEMBUATAN LIST KOSONG ******************/
-void CreateLinkedList(LinkedList *l);
+void createLinkedList(LinkedList *l);
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 
