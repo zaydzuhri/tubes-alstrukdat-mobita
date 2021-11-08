@@ -10,7 +10,6 @@ int main() {
     createQueue(&dp);
     readConfig("config.txt", &l, &rows, &cols, &adj, &dp);
     printf("%d %d\n", rows, cols);
-    displayListLoc(l);
     printf("\n");
     displayMatrix(adj);
     printf("\n");

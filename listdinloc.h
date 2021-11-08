@@ -9,6 +9,7 @@
 
 #include "boolean.h"
 #include "location.h"
+#include "matrix.h"
 
 /*  Kamus Umum */
 #define IDX_UNDEF -1
@@ -60,6 +61,8 @@ int lengthListLoc(ListLoc l);
 
 void getLocationFromList(ListLoc l, Location *loc, char locName);
 
+void getAdjacentLocations(Matrix adjMat, ListLoc list, ListLoc *adjList, Location currentLoc);
+
 /* *** Selektor INDEKS *** */
 IdxType getLastIdxListLoc(ListLoc l);
 /* Prekondisi : List l tidak kosong */
@@ -80,7 +83,9 @@ boolean isEmptyListLoc(ListLoc l);
 /* *** Test list penuh *** */
 boolean isFullListLoc(ListLoc l);
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
+boolean isInListLoc(ListLoc l, char name);
 
+boolean isAdjacent(Matrix adjMat, ListLoc list, Location loc1, Location loc2);
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi list dari pembacaan *** */
 void readListLoc(ListLoc *l);
@@ -93,7 +98,7 @@ void readListLoc(ListLoc *l);
 /* 2. Jika 0 < N <= LISTLOCCAP(l); Lakukan N kali: Baca elemen mulai dari indeks
       0 satu per satu diakhiri enter */
 /*    Jika N = 0; hanya terbentuk l kosong */
-void displayListLoc(ListLoc l);
+void displayListLoc(ListLoc l, Location currentLoc);
 /* Proses : Menuliskan isi list dengan traversal, list ditulis di antara kurung siku;
    antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan karakter di depan,
    di tengah, atau di belakang, termasuk spasi dan enter */

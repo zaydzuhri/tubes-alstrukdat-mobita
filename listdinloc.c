@@ -42,6 +42,14 @@ void getLocationFromList(ListLoc l, Location *loc, char locName) {
     LOC_POS(*loc) = LOC(l, indexOfListLoc(l, locName)).locPosition;
 }
 
+void getAdjacentLocations(Matrix adjMat, ListLoc list, ListLoc *adjList, Location currentLoc) {
+    for (int i = 0; i < lengthListLoc(list); i++) {
+        if (isAdjacent(adjMat, list, LOC(list, i), currentLoc)) {
+            insertLastListLoc(adjList, LOC(list, i));
+        }
+    }
+}
+
 /* *** Selektor INDEKS *** */
 IdxType getLastIdxListLoc(ListLoc l) {
     return NEFF(l) - 1;
@@ -72,6 +80,21 @@ boolean isFullListLoc(ListLoc l) {
     return NEFF(l) == LISTLOCCAP(l);
 }
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
+boolean isInListLoc(ListLoc l, char name) {
+    boolean found = false;
+    for (int i = 0; i < lengthListLoc(l) && !found; i++) {
+        if (LOC(l, i).locName == name) {
+            found = true;
+        }
+    }
+    return found;
+}
+
+boolean isAdjacent(Matrix adjMat, ListLoc list, Location loc1, Location loc2) {
+    int loc1idx = indexOfListLoc(list, loc1.locName);
+    int loc2idx = indexOfListLoc(list, loc2.locName);
+    return ELMT(adjMat, loc1idx, loc2idx);
+}
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi list dari pembacaan *** */
@@ -97,15 +120,20 @@ void readListLoc(ListLoc *l) {
 /* 2. Jika 0 < N <= LISTLOCCAP(l); Lakukan N kali: Baca elemen mulai dari indeks
       0 satu per satu diakhiri enter */
 /*    Jika N = 0; hanya terbentuk l kosong */
-void displayListLoc(ListLoc l) {
-    printf("[");
+void displayListLoc(ListLoc l, Location currentLoc) {
     if (!isEmptyListLoc(l)) {
-        printf("[%c,%d,%d]", LOC(l, 0).locName, LOC(l, 0).locPosition.Row, LOC(l, 0).locPosition.Col);
-        for (int i = 1; i < lengthListLoc(l); i++) {
-            printf(",[%c,%d,%d]", LOC(l, i).locName, LOC(l, i).locPosition.Row, LOC(l, i).locPosition.Col);
+        int i = 0;
+        int count = 1;
+        while (i < lengthListLoc(l)) {
+            if (LOC(l, i).locName != currentLoc.locName) {
+                printf("%d. %c (%d,%d)\n", count, LOC(l, i).locName, LOC(l, i).locPosition.Row, LOC(l, i).locPosition.Col);
+                count++;
+            }
+            i++;
         }
+    } else {
+        printf("Peta kosong.\n");
     }
-    printf("]");
 }
 /* Proses : Menuliskan isi list dengan traversal, list ditulis di antara kurung siku;
    antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan karakter di depan,

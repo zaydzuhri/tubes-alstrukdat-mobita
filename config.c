@@ -15,7 +15,7 @@ void readConfig(char fileName[20], ListLoc *listLoc, int *mapRows, int *mapCols,
     advWordFile();
     int HQCol = atoi(input);
     Location HQLoc;
-    createLocation(&HQLoc, '@', HQRow, HQCol);
+    createLocation(&HQLoc, '8', HQRow, HQCol);
     insertLastListLoc(listLoc, HQLoc);
 
     advWordFile();
