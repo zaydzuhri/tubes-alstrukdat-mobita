@@ -40,3 +40,27 @@ void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int *time, int h
         }
     }
 }
+
+void pick_up(Bag bag, ToDoList tdlist, Location l){
+    if(isBagFull(bag)){
+        printf("Tas Sudah Penuh ! Antarkan pesanan dahulu !");
+        printf("\n");
+    }
+
+    else{
+        boolean pick = true;
+        Address pos = tdlist;
+        while(pos != NULL && pick){
+            if(LOC_NAME(PICK_UP_LOCATION(INFO(pos))) == LOC_NAME(l)){
+                pushBag(&bag,INFO(pos));
+                pick = false;
+                printf("Pesanan berhasil di pick up!");
+                printf("\n");
+            }else{
+                pos = NEXT(pos);
+            }
+        }
+    }
+}
+
+void drop_off();
