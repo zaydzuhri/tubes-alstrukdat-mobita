@@ -1,16 +1,17 @@
 /* File : bag.h */
-/* Definisi ADT Stack dengan representasi array secara eksplisit dan alokasi statik */
+/* Definisi bag dengan ADT Stack dengan representasi array secara eksplisit dan alokasi statik */
 /* TOP adalah alamat elemen puncak */
 
-#ifndef STACK_H
-#define STACK_H
+#ifndef BAG_H
+#define BAG_H
 
 #include "boolean.h"
+#include "pesanan.h"
 
 #define IDX_UNDEF -1
 #define CAPACITY 100
 
-typedef int ElType;
+typedef Pesanan ElType;
 typedef struct {
   ElType buffer[CAPACITY]; /* tabel penyimpan elemen */
   int idxTop;              /* alamat TOP: elemen puncak */
