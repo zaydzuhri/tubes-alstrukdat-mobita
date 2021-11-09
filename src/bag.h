@@ -15,12 +15,14 @@ typedef Pesanan ElType;
 typedef struct {
   ElType buffer[CAPACITY]; /* tabel penyimpan elemen */
   int idxTop;              /* alamat TOP: elemen puncak */
+  int maxCapacity          /* Kapasitas maksimum tas*/
 } Bag;
 
 /* ********* AKSES (Selektor) ********* */
-/* Jika s adalah Stack, maka akses elemen : */
+/* Jika s adalah Bag, maka akses elemen : */
 #define IDX_TOP(b) (b).idxTop
 #define     TOP(b) (b).buffer[(b).idxTop]
+#define max_Cap(b) (b).maxCapacity
 
 /* *** Konstruktor/Kreator *** */
 void CreateBag(Bag *b);
@@ -34,6 +36,11 @@ boolean isBagEmpty(Bag b);
 /* Mengirim true jika b kosong: lihat definisi di atas */
 boolean isBagFull(Bag b);
 /* Mengirim true jika tabel penampung nilai b penuh */
+
+/* ************ Menambahkan kapasitas tas************ */
+void increaseMaxCapacity(Bag *b);
+/* I.S. Kapasitas maksimal dari tas terdefinisi*/
+/* F.S. Kapasitas maksimal secara permanen bertambah 1*/
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
 void pushBag(Bag *b, ElType val);

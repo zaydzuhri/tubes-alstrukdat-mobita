@@ -20,6 +20,13 @@ boolean isBagFull(Bag b){
     return (IDX_TOP(b) == CAPACITY-1);
 }
 
+/* ************ Menambahkan kapasitas tas************ */
+void increaseMaxCapacity(Bag *b){
+    max_Cap(*b)++;
+}
+/* I.S. Kapasitas maksimal dari tas terdefinisi*/
+/* F.S. Kapasitas maksimal secara permanen bertambah 1*/
+
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
 void pushBag(Bag *b, ElType val){
 /* Menambahkan val sebagai elemen Bag b */
