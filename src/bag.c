@@ -8,6 +8,7 @@ void CreateBag(Bag *b){
 /* - Index top bernilai IDX_UNDEF */
 /* Proses : Melakukan alokasi, membuat sebuah b kosong */
     IDX_TOP(*b) = IDX_UNDEF;
+    max_Cap(*b) = 3;
 }
 
 /* ************ Prototype ************ */
@@ -17,7 +18,7 @@ boolean isBagEmpty(Bag b){
 }
 boolean isBagFull(Bag b){
 /* Mengirim true jika tabel penampung nilai b penuh */
-    return (IDX_TOP(b) == CAPACITY-1);
+    return (IDX_TOP(b) == max_Cap(b)-1);
 }
 
 /* ************ Menambahkan kapasitas tas************ */

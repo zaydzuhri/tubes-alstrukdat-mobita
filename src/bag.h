@@ -15,7 +15,7 @@ typedef Pesanan ElType;
 typedef struct {
   ElType buffer[CAPACITY]; /* tabel penyimpan elemen */
   int idxTop;              /* alamat TOP: elemen puncak */
-  int maxCapacity          /* Kapasitas maksimum tas*/
+  int maxCapacity;          /* Kapasitas maksimum tas*/
 } Bag;
 
 /* ********* AKSES (Selektor) ********* */
