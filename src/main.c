@@ -24,6 +24,7 @@ int main() {
     int capTas = 3;
     int heavyItemsAmount = 0;
 
+    int money = 0;
     int time = 0;
 
     int speedBoostCount = 0;

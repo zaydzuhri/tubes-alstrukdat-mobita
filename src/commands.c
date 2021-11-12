@@ -1,4 +1,5 @@
 #include "commands.h"
+#include <stdlib.h>
 
 void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int *time, int heavyItems, boolean isSpeedBoost, int speedBoostCount) {
     printf("Posisi yang dapat dicapai:\n");
@@ -41,7 +42,7 @@ void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int *time, int h
     }
 }
 
-void pick_up(Bag bag, ToDoList tdlist, Location l){
+void pick_up(Bag bag, ToDoList tdlist, Location l, int *heavyItemsAmount){
     if(isBagFull(bag)){
         printf("Tas Sudah Penuh ! Antarkan pesanan dahulu !");
         printf("\n");
@@ -53,8 +54,27 @@ void pick_up(Bag bag, ToDoList tdlist, Location l){
         while(pos != NULL && pick){
             if(LOC_NAME(PICK_UP_LOCATION(INFO(pos))) == LOC_NAME(l)){
                 pushBag(&bag,INFO(pos));
+                char jenisItem = JENIS_ITEM(INFO(pos));
                 pick = false;
-                printf("Pesanan berhasil di pick up!");
+                switch (JENIS_ITEM(INFO(pos)))
+                {
+                case 'n':
+                    printf("Pesanan berupa Normal Item berhasil di pick up!");
+                    break;
+                case 'h':
+                    *heavyItemsAmount++;
+                    printf("Pesanan berupa Heavy Item berhasil di pick up!");
+                    break;
+                case 'p':
+                    printf("Pesanan berupa Perishable item berhasil di pick up!");
+                    break;
+                case 'v':
+                    printf("Pesanan berupa VIP Item berhasil di pick up!");
+                    break;
+                default:
+                    printf("Pesanan berhasil di pick up!");
+                    break;
+                }
                 printf("\n");
             }else{
                 pos = NEXT(pos);
@@ -63,4 +83,42 @@ void pick_up(Bag bag, ToDoList tdlist, Location l){
     }
 }
 
-void drop_off();
+void drop_off(Bag bag, Location l, int *heavyItemsAmount, int *uang){
+    if(isBagEmpty(bag)){
+        printf("Tidak ada pesanan yang dapat diantarkan!");
+    }else{
+        Pesanan p;
+        char jenis[15] = "item";
+        popBag(&bag, &p);
+        if(!(isSameLoc(l, DROP_OFF_LOCATION(p)))){
+            pushBag(&bag, p);
+            printf("Lokasi salah!");
+        }else{
+            switch (JENIS_ITEM(p))
+            {
+            case 'n':
+                strcpy(jenis, "Normal Item");
+                *uang += 200;
+                break;
+            case 'h':
+                strcpy(jenis, "Heavy Item");
+                *heavyItemsAmount--;
+                *uang += 400;
+                break;
+            case 'p':
+                strcpy(jenis, "Perishable Item");
+                *uang += 400;
+                increaseMaxCapacity(&bag);
+                break;
+            case 'v':
+                strcpy(jenis, "VIP Item");
+                *uang += 600;
+                break;
+            default:
+                break;
+            }
+            printf("Pesanan %c berhasil diantarkan", jenis);
+        }
+    }
+
+}

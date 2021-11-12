@@ -10,6 +10,6 @@
 
 void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int *time, int heavyItems, boolean isSpeedBoost, int speedBoostCount);
 
-void pick_up(Bag bag, ToDoList tdlist, Location l);
+void pick_up(Bag bag, ToDoList tdlist, Location l, int *heavyItemsAmout);
 
 void drop_off();

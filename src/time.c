@@ -1,6 +1,6 @@
 #include "time.h"
 
-int addTime(InProgressList L, int speedBoostCount ,boolean *isSpeedBoost) {
+int addTime(InProgressList L, int speedBoostCount, boolean *isSpeedBoost) {
     /*  Mengembalikan banyaknya tambahan waktu
     Tambahan waktu = 1
     setiap ada heavy item dalam inprogress list => Tambahan waktu += 1 
@@ -16,7 +16,7 @@ int addTime(InProgressList L, int speedBoostCount ,boolean *isSpeedBoost) {
     Heavy = 0;
 
     while (P != NULL) {
-        if (JENIS_ITEM(INFO(P)) == 'H') {
+        if (JENIS_ITEM(INFO(P)) == 'h') {
             Heavy += 1;
         }
     }
