@@ -23,7 +23,7 @@ int main() {
     createPesanan(&p3, 3, lokasiC, lokasiA, 'p', 5);
     createPesanan(&p4, 4, lokasiA, lokasiB, 'n', -99);
 
-    // Buat LinekdList
+    // Buat LinkedList
     createLinkedList(&l);
 
     // Cek apakah LinkedList kosong
