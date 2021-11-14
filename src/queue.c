@@ -28,21 +28,6 @@ boolean isQueueEmpty(Queue q) {
     return IDX_HEAD(q) == IDX_UNDEF && IDX_TAIL(q) == IDX_UNDEF;
 }
 
-boolean isQueueFull(Queue q) {
-/* Mengirim true jika tabel penampung elemen q sudah penuh */
-/* yaitu jika index head bernilai 0 dan index tail bernilai CAPACITY-1 */
-    return IDX_HEAD(q) == 0 && IDX_TAIL(q) == CAPACITY - 1;
-}
-
-int queueLength(Queue q) {
-/* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
-    if (isQueueEmpty(q)) {
-        return 0;
-    } else {
-        return IDX_TAIL(q) - IDX_HEAD(q) + 1;
-    }
-}
-
 /* *** Primitif Add/Delete *** */
 void enqueue(Queue *q, PendingPesanan val) {
 /* Proses: Menambahkan val pada q dengan aturan FIFO berdasarkan prioritas waktuMasuk */

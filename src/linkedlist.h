@@ -31,13 +31,6 @@ boolean isLinkedListEmpty(LinkedList l);
 /* Mengirim true jika list kosong */
 
 /****************** GETTER SETTER ******************/
-Pesanan getLinkedListElmt(LinkedList l, int idx);
-/* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
-/* F.S. Mengembalikan nilai elemen l pada indeks idx */
-
-void setLinkedListElmt(LinkedList *l, int idx, Pesanan val);
-/* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
-/* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 
 int indexOfLinkedList(LinkedList l, Pesanan val);
 /* I.S. l, val terdefinisi */
@@ -59,21 +52,11 @@ void insertLastLinkedList(LinkedList *l, Pesanan val);
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
 /* bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
-void insertAt(LinkedList *l, Pesanan val, int idx);
-/* I.S. l tidak mungkin kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
-/* F.S. Melakukan alokasi sebuah elemen dan */
-/* menyisipkan elemen dalam list pada indeks ke-idx (bukan menimpa elemen di i) */
-/* yang bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
-
 /*** PENGHAPUSAN ELEMEN ***/
 void deleteFirstLinkedList(LinkedList *l, Pesanan *val);
 /* I.S. LinkedList l tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada x */
 /*      dan alamat elemen pertama di-dealokasi */
-void deleteLastLinkedList(LinkedList *l, Pesanan *val);
-/* I.S. list tidak kosong */
-/* F.S. Elemen terakhir list dihapus: nilai info disimpan pada x */
-/*      dan alamat elemen terakhir di-dealokasi */
 
 void deleteAtLinkedList(LinkedList *l, int idx, Pesanan *val);
 /* I.S. list tidak kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
@@ -89,16 +72,5 @@ void displayLinkedList(LinkedList l);
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika list kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
-
-int linkedListLength(LinkedList l);
-/* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
-
-/****************** PROSES TERHADAP LIST ******************/
-LinkedList concatLinkedList(LinkedList l1, LinkedList l2) ;
-/* I.S. l1 dan l2 sembarang */
-/* F.S. l1 dan l2 kosong, l3 adalah hasil konkatenasi l1 & l2 */
-/* Konkatenasi dua buah list : l1 dan l2    */
-/* menghasilkan l3 yang baru (dengan elemen list l1 dan l2 secara beurutan). */
-/* Tidak ada alokasi/dealokasi pada prosedur ini */
 
 #endif

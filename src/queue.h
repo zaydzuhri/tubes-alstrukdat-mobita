@@ -55,11 +55,6 @@ void createQueue(Queue *q);
 /* ********* Prototype ********* */
 boolean isQueueEmpty(Queue q);
 /* Mengirim true jika q kosong: lihat definisi di atas */
-boolean isQueueFull(Queue q);
-/* Mengirim true jika tabel penampung elemen q sudah penuh */
-/* yaitu jika index head bernilai 0 dan index tail bernilai CAPACITY-1 */
-int queueLength(Queue q);
-/* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
 
 /* *** Primitif Add/Delete *** */
 void enqueue(Queue *q, PendingPesanan val);

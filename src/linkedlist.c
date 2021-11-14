@@ -16,33 +16,6 @@ boolean isLinkedListEmpty(LinkedList l){
 }
 
 /****************** GETTER SETTER ******************/
-Pesanan getLinkedListElmt(LinkedList l, int idx){
-/* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
-/* F.S. Mengembalikan nilai elemen l pada indeks idx */
-    /* KAMUS LOKAL */
-    Address p;
-
-    /* ALGORITMA */ 
-    p = FIRST(l);
-    for (int i = 0; i < idx; i++) {
-        p = NEXT(p);
-    }
-    return INFO(p);
-}
-
-void setLinkedListElmt(LinkedList *l, int idx, Pesanan val){
-/* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
-/* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
-    /* KAMUS LOKAL */
-    Address p;
-
-    /* ALGORITMA */
-    p = FIRST(*l);
-    for (int i = 0; i < idx; i++) {
-        p = NEXT(p);
-    }
-    INFO(p) = val;
-}
 
 int indexOfLinkedList(LinkedList l, Pesanan val){
 /* I.S. l, val terdefinisi */
@@ -125,31 +98,6 @@ void insertLastLinkedList(LinkedList *l, Pesanan val){
     }
 }
 
-void insertAtLinkedList(LinkedList *l, Pesanan val, int idx){
-/* I.S. l tidak mungkin kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
-/* F.S. Melakukan alokasi sebuah elemen dan */
-/* menyisipkan elemen dalam list pada indeks ke-idx (bukan menimpa elemen di i) */
-/* yang bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
-    /* KAMUS LOKAL */
-    Address p, loc;
-
-    /* ALGORITMA */
-    if (idx == 0) {
-        insertFirstLinkedList(l, val);
-    }
-    else {
-        p = newNode(val);
-        if (p != NULL) {
-            loc = FIRST(*l);
-            for (int i = 0; i < idx - 1; i++) {
-                loc = NEXT(loc);
-            }
-            NEXT(p) = NEXT(loc);
-            NEXT(loc) = p;
-        }
-    }
-}
-
 /*** PENGHAPUSAN ELEMEN ***/
 void deleteFirstLinkedList(LinkedList *l, Pesanan *val){
 /* I.S. LinkedList l tidak kosong  */
@@ -162,33 +110,6 @@ void deleteFirstLinkedList(LinkedList *l, Pesanan *val){
     p = FIRST(*l);
     *val = INFO(p);
     FIRST(*l) = NEXT(p);
-    free(p);
-}
-
-void deleteLastLinkedList(LinkedList *l, Pesanan *val){
-/* I.S. list tidak kosong */
-/* F.S. Elemen terakhir list dihapus: nilai info disimpan pada x */
-/*      dan alamat elemen terakhir di-dealokasi */
-    /* KAMUS LOKAL */
-    Address p, last;
-
-    /* ALGORITMA */
-    p = FIRST(*l);
-    last = NULL;
-
-    while (NEXT(p) != NULL) {
-        last = p;
-        p = NEXT(p);
-    }
-
-    if (last == NULL) {
-        deleteFirstLinkedList(l, val);
-    }
-    else {
-        *val = INFO(p);
-        NEXT(last) = NULL;
-    }
-    
     free(p);
 }
 
@@ -242,49 +163,4 @@ void displayLinkedList(LinkedList l){
             p = NEXT(p);
         } while (p != NULL);
     }
-}
-
-int linkedListLength(LinkedList l){
-/* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
-    /* KAMUS LOKAL */
-    int len;
-    Address p;
-
-    /* ALGORITMA */
-    len = 0;
-    p = FIRST(l);
-
-    while (p != NULL) {
-        len++;
-        p = NEXT(p);
-    }
-
-    return len;
-}
-
-/****************** PROSES TERHADAP LIST ******************/
-LinkedList concatLinkedList(LinkedList l1, LinkedList l2){
-/* I.S. l1 dan l2 sembarang */
-/* F.S. l1 dan l2 kosong, l3 adalah hasil konkatenasi l1 & l2 */
-/* Konkatenasi dua buah list : l1 dan l2    */
-/* menghasilkan l3 yang baru (dengan elemen list l1 dan l2 secara beurutan). */
-/* Tidak ada alokasi/dealokasi pada prosedur ini */
-    /* KAMUS LOKAL */
-    Address p;
-    LinkedList l3;
-
-    /* ALGORITMA */
-    createLinkedList(&l3);
-    p = FIRST(l1);
-    while (p != NULL) {
-        insertLastLinkedList(&l3, INFO(p));
-        p = NEXT(p);
-    }
-    p = FIRST(l2);
-    while (p != NULL) {
-        insertLastLinkedList(&l3, INFO(p));
-        p = NEXT(p);
-    }
-
-    return l3;
 }
