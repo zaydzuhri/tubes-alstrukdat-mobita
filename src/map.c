@@ -2,6 +2,7 @@
 
 #include "map.h"
 #include <stdio.h>
+
 void CreateMap(int mapRows, int mapCols, Matrix *M) {
     /*  I.S. mapRows, mapCols, locL terdefinisi
         F.S. M membuat matrix kosong dengan batas 42 => (int) '*' */ 
@@ -29,30 +30,24 @@ void displayMap(int mapRows, int mapCols, int time, ListLoc locL, Location curLo
     F.S. Menuliskan peta  */
     /* KAMUS */
     Matrix M;
-    int i, j, k,l, ctr; 
-    ListLoc dest;
+    int i, j, k; 
+    ListLoc adjLocList;
     Address p;
     /* Algoritma */
-    CreateMap(mapRows, mapCols, &M);
-    CreateListLoc(&dest, NEFF(locL));
 
-    ctr = 0;
-    while (LOC_NAME(LOC(locL,ctr)) != LOC_NAME(curLoc)) {
-        ctr++;
-    }
+    CreateMap(mapRows, mapCols, &M);
+    CreateListLoc(&adjLocList, 30);
+    getAdjacentLocations(adjM, locL, &adjLocList, curLoc);
 
     for (i = 0; i < NEFF(locL); i++) {
         ELMT(M, 1+LOC_ROW(LOC(locL,i)),1+LOC_COL(LOC(locL,i))) = (int) LOC_NAME(LOC(locL,i));
-        if (ELMT(adjM, ctr, i) == 1) {
-            insertLastListLoc(&dest, LOC(locL,i));
-        }
-    } 
-
+    }
+    
     for (i = 0; i < ROWS(M); i++) {
         for (j = 0; j < COLS(M); j++) {
             // print hijau untuk destination dari current location
-            for (k = 0; k < NEFF(dest); k++) {
-                if (ELMT(M,i,j) == (int) LOC_NAME(LOC(dest,k))) {
+            for (k = 0; k < NEFF(adjLocList); k++) {
+                if (ELMT(M,i,j) == (int) LOC_NAME(LOC(adjLocList,k))) {
                     print_green((char) ELMT(M,i,j));
                 }
             }
@@ -60,7 +55,7 @@ void displayMap(int mapRows, int mapCols, int time, ListLoc locL, Location curLo
             // print merah untuk tempat pickup location
             p = FIRST(todoL);
             while (p != NULL) {
-                if (KODE_PESANAN(INFO(p)) >= time && (int) LOC_NAME(PICK_UP_LOCATION(INFO(p))) == ELMT(M,i,j)) {
+                if ((int) LOC_NAME(PICK_UP_LOCATION(INFO(p))) == ELMT(M,i,j)) {
                     print_red((char) ELMT(M,i,j));
                 }
             }
