@@ -36,7 +36,7 @@ void removeExpiredPerishables(InProgressList *ipl){
 
     if (!isLinkedListEmpty(*ipl)) {
         do {
-            if (JENIS_ITEM(INFO(addr2)) == 'p' && (WAKTU_HANGUS(INFO(addr2)) == 0)) {
+            if (JENIS_ITEM(INFO(addr2)) == 'P' && (WAKTU_HANGUS(INFO(addr2)) == 0)) {
                 if (addr1 == NULL) {
                     // Elemen pertama InProgressList adalah perishable item yang waktu hangusnya 0
                     deleteFirstLinkedList(ipl, &p);
@@ -69,7 +69,7 @@ void reduceAllPerishablesTime(InProgressList *ipl){
     addr = FIRST(*ipl);
     if (!isLinkedListEmpty(*ipl)) {
         while (addr != NULL) {
-             if (JENIS_ITEM(INFO(addr)) == 'p') {
+             if (JENIS_ITEM(INFO(addr)) == 'P') {
                 WAKTU_HANGUS(INFO(addr))--; 
              }
              addr = NEXT(addr);
@@ -110,16 +110,16 @@ void displayInProgressList(InProgressList ipl){
         do {
             printf("%d. ", counter);
             switch (JENIS_ITEM(INFO(p))) {
-                case 'n':
+                case 'N':
                     printf("Normal Item (Tujuan: %c)\n", LOC_NAME(DROP_OFF_LOCATION(INFO(p))));
                     break;
-                case 'h':
+                case 'H':
                     printf("Heavy Item (Tujuan: %c)\n", LOC_NAME(DROP_OFF_LOCATION(INFO(p))));
                     break;
-                case 'p':
+                case 'P':
                     printf("Perishable Item (Tujuan: %c, Sisa Waktu %d)\n", LOC_NAME(DROP_OFF_LOCATION(INFO(p))), WAKTU_HANGUS(INFO(p)));
                     break;
-                case 'v':
+                case 'V':
                     printf("VIP Item (Tujuan: %c)\n", LOC_NAME(DROP_OFF_LOCATION(INFO(p))));
                     break;
                 default:

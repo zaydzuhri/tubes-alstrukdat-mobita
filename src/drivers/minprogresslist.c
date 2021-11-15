@@ -17,10 +17,10 @@ int main() {
     createLocation(&lokasiC, 'C', 5, 6);
 
     // Buat elemen Pesanan
-    createPesanan(&p1, 1, lokasiA, lokasiB, 'n', -99);
-    createPesanan(&p2, 2, lokasiB, lokasiC, 'h', -99);
-    createPesanan(&p3, 3, lokasiC, lokasiA, 'p', 5);
-    createPesanan(&p4, 4, lokasiA, lokasiB, 'n', -99);
+    createPesanan(&p1, 1, lokasiA, lokasiB, 'N', -99);
+    createPesanan(&p2, 2, lokasiB, lokasiC, 'H', -99);
+    createPesanan(&p3, 3, lokasiC, lokasiA, 'P', 5);
+    createPesanan(&p4, 4, lokasiA, lokasiB, 'N', -99);
 
     // Buat In Progress List
     createInProgressList(&ipl);

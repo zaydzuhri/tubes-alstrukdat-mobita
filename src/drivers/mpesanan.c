@@ -23,7 +23,7 @@ int main() {
         // Lokasi drop off = lokasiB
         // Jenis item = 'n'     (Normal item)
         // Jenis item bukan item perishable sehingga waktu hangus diset sembarang
-    createPesanan(&pesanan1, 1, lokasiA, lokasiB, 'n', -99);
+    createPesanan(&pesanan1, 1, lokasiA, lokasiB, 'N', -99);
     printf("Pesanan 1:\n");
     displayPesanan(pesanan1);
     printf("\n");
@@ -35,7 +35,7 @@ int main() {
         // Lokasi drop off = lokasiC
         // Jenis item = 'h'     (Heavy item)
         // Jenis item bukan item perishable sehingga waktu hangus diset sembarang
-    createPesanan(&pesanan2, 2, lokasiB, lokasiC, 'h', -99);
+    createPesanan(&pesanan2, 2, lokasiB, lokasiC, 'H', -99);
     printf("Pesanan 2:\n");
     displayPesanan(pesanan2);
     printf("\n");
@@ -47,7 +47,7 @@ int main() {
         // Lokasi drop off = lokasiA
         // Jenis item = 'p'     (Perishable item)
         // Waktu hangus = 5
-    createPesanan(&pesanan3, 3, lokasiC, lokasiA, 'p', 5);
+    createPesanan(&pesanan3, 3, lokasiC, lokasiA, 'P', 5);
     printf("Pesanan 3:\n");
     displayPesanan(pesanan3);
     printf("\n");

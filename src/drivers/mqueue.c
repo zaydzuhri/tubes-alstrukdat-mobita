@@ -18,9 +18,9 @@ int main() {
     createLocation(&lokasiC, 'C', 5, 6);
 
     // Buat elemen PendingPesanan
-    createPendingPesanan(&pp1, 5, 1, lokasiA, lokasiB, 'n', -99);
-    createPendingPesanan(&pp2, 2, 2, lokasiB, lokasiC, 'h', -99);
-    createPendingPesanan(&pp3, 3, 3, lokasiC, lokasiA, 'p', 5);
+    createPendingPesanan(&pp1, 5, 1, lokasiA, lokasiB, 'N', -99);
+    createPendingPesanan(&pp2, 2, 2, lokasiB, lokasiC, 'H', -99);
+    createPendingPesanan(&pp3, 3, 3, lokasiC, lokasiA, 'P', 5);
 
     // Buat Queue
     createQueue(&q);

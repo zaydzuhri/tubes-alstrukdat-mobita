@@ -10,7 +10,7 @@ void createPesanan (Pesanan *p, int kodePesanan, Location pickUpLocation, Locati
     DROP_OFF_LOCATION(*p) = dropOffLocation;
     JENIS_ITEM(*p) = jenisItem;
 
-    if (jenisItem == 'p') {
+    if (jenisItem == 'P') {
         WAKTU_HANGUS(*p) = waktuHangus;
     }
     else {
@@ -32,17 +32,17 @@ void displayPesanan(Pesanan p) {
 
     printf("Jenis item: ");
     switch (JENIS_ITEM(p)) {
-    case 'n':
+    case 'N':
         printf("Normal item\n");
         break;
-    case 'h':
+    case 'H':
         printf("Heavy item\n");
         break;
-    case 'p':
+    case 'P':
         printf("Perishable item\n");
         printf("Waktu Hangus: %d\n", WAKTU_HANGUS(p));
         break;
-    case 'v':
+    case 'V':
         printf("VIP item\n");
         break;
     default:
