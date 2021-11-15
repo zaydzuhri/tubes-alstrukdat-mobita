@@ -72,12 +72,12 @@ void removeGadget(GadgetList *IG, int idx){
 // I.S. g, ig terdefinisi dan g ada di IG
 // F.S. g dihapus ke inventory
     /* KAMUS */
-    ElType val;
+    ElTypeListPos val;
     /* ALGORITMA */
     deleteAtListPos(IG, &val,idx);
 }
 
-void useGadget(GadgetList *IG){
+void useGadget(GadgetList *IG, DaftarPesanan dp, Bag *b, int mapRows, int mapCols, int *time, ListLoc locL, Location *curLoc, Matrix adjM, ToDoList todoL, InProgressList *progL){
 // I.S. IG, g terdefinisi
 /* F.S. jika g ada pada IG, g dihapus dari IG, g menjadi aktif, 
     jika tidak ada, keluarkan pesan gagal*/
@@ -90,6 +90,22 @@ void useGadget(GadgetList *IG){
     if(currentWord.length == 1){
         idx = currentWord.contents[0] - '1';
         if(isIdxEffListPos(*IG,idx)){
+            switch(ELMTListPos(*IG, idx)){
+                case (1):
+                    kainEffect(dp,b,progL);
+                    break;
+                case (2):
+                    pembesarEffect(b);
+                    break;
+                case (3):
+                    pintuEffect(mapRows, mapCols, *time, locL, curLoc, adjM, todoL, *progL);
+                    break;
+                case (4):
+                    mesinWaktuEffect(time);
+                    break;
+                default:
+                    printf("Senter pengecilmu tiba-tiba hilang!\n");
+            }
             printf("%s berhasil dipakai\n",getGadgetName(ELMTListPos(*IG,idx)));
             removeGadget(IG,idx);
         }else{
@@ -163,5 +179,57 @@ void displayInventory(GadgetList *IG){
             printf("%d. -\n",i+1);
         }
     }
-    useGadget(IG);
+}
+
+void kainEffect(DaftarPesanan dp,Bag *b, InProgressList *ipl){
+// I.S. Kain Pembungkus Waktu dipilih dalam prosedur useGadget
+/* F.S. Jika item paling atas dalam tas ialah perishible item, waktu hangusnya kembali ke semula */
+    /* KAMUS */
+    int time;
+    /* ALGORITMA */
+    if(JENIS_ITEM(TOP(*b)) == 'P'){
+        time = getOriginalWaktuHangus(dp,TOP(*b));
+        WAKTU_HANGUS(TOP(*b)) =time;
+        changePerishableTime(ipl, TOP(*b), time);
+    }
+}
+
+void pembesarEffect(Bag *b){
+// I.S. Senter Pembesar dipilih dalam prosedur useGadget
+/* F.S. Jika dua kali kapasitas tas <= kapasitas maksimum, kapasitas tas dikali 2 */
+    /* KAMUS */
+    /* ALGORITMA */
+    if (max_Cap(*b)*2<=BAG_CAPACITY){
+        max_Cap(*b)*=2;
+    }else{
+        max_Cap(*b) = BAG_CAPACITY;
+    }
+}
+
+void pintuEffect(int mapRows, int mapCols, int time, ListLoc locL, Location *curLoc, Matrix adjM, ToDoList todoL, InProgressList progL){
+// I.S. Pintu Kemana Saja dipilih dalam prosedur useGadget
+/* F.S. Berhasil berpindah ke lokasi lain, waktu tidak bertambah */
+    /* KAMUS */
+    Location targetLoc;
+    /* ALGORITMA */
+    //displayMap(mapRows, mapCols, time, locL, *curLoc, adjM, todoL, progL);
+    printf("\nIngin berpindah ke lokasi mana?\n\nENTER COMMAND : ");
+
+    startWord();
+
+    while(currentWord.length!=1 || !isInListLoc(locL,currentWord.contents[0])){
+        printf("Lokasi tidak valid. Masukkan lokasi yang valid!\nENTER COMMAND : ");
+        startWord();
+    }
+
+    getLocationFromList(locL, curLoc, currentWord.contents[0]);
+}
+
+void mesinWaktuEffect(int *time){
+// I.S. Mesin Waktu dipilih dalam prosedur useGadget
+/* F.S. Jika item paling atas dalam tas ialah perishible item, waktu hangusnya kembali ke semula */
+    /* KAMUS */
+    /* ALGORITMA */
+    if(*time > 50) *time -= 50;
+    else *time = 0;
 }
