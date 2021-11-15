@@ -1,7 +1,7 @@
 #include "commands.h"
 #include <stdlib.h>
 
-void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int *time, int heavyItems, boolean isSpeedBoost, int speedBoostCount) {
+void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, int speedBoostDur) {
     printf("Posisi yang dapat dicapai:\n");
 
     ListLoc adjLocList;
@@ -30,16 +30,16 @@ void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int *time, int h
         }
     }
 
-    if (!exit) {
-        if (isSpeedBoost) {
-            if (speedBoostCount % 2 != 0) {
-                *time++;
-            }
-            speedBoostCount++;
-        } else {
-            *time += 1 + heavyItems;
-        }
-    }
+    // if (!exit) {
+    //     if (isSpeedBoost) {
+    //         if (speedBoostCount % 2 != 0) {
+    //             *time++;
+    //         }
+    //         speedBoostCount++;
+    //     } else {
+    //         *time += 1 + heavyItems;
+    //     }
+    // }
 }
 
 void pick_up(Bag bag, ToDoList tdlist, Location l, int *heavyItemsAmount){
@@ -83,7 +83,7 @@ void pick_up(Bag bag, ToDoList tdlist, Location l, int *heavyItemsAmount){
     }
 }
 
-void drop_off(Bag bag, Location l, int *heavyItemsAmount, int *uang){
+void drop_off(Bag bag, Location l, int *heavyItemsAmount, int *uang, int speedBoostDur){
     if(isBagEmpty(bag)){
         printf("Tidak ada pesanan yang dapat diantarkan!");
     }else{
@@ -104,6 +104,7 @@ void drop_off(Bag bag, Location l, int *heavyItemsAmount, int *uang){
                 strcpy(jenis, "Heavy Item");
                 *heavyItemsAmount--;
                 *uang += 400;
+                speedBoostDur += 10;
                 break;
             case 'p':
                 strcpy(jenis, "Perishable Item");

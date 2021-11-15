@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int *time, int heavyItems, boolean isSpeedBoost, int speedBoostCount);
+void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, int speedBoostDur);
 
 void pick_up(Bag bag, ToDoList tdlist, Location l, int *heavyItemsAmout);
 
