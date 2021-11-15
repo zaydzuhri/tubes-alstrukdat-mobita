@@ -7,6 +7,8 @@
 #include "queue.h"
 #include "todolist.h"
 #include "wordmachine.h"
+#include "time.h"
+#include "bag.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,6 +20,7 @@ int main() {
     DaftarPesanan dafPesanan;
     ToDoList toDo;
     InProgressList inProgress;
+    Bag bag;
 
     int mapRows = 0;
     int mapCols = 0;
@@ -27,8 +30,7 @@ int main() {
     int money = 0;
     int time = 0;
 
-    int speedBoostCount = 0;
-    boolean isSpeedBoost = false;
+    int speedBoostDur = 0;
 
     boolean gameLoop = true;
 
@@ -36,6 +38,7 @@ int main() {
 
     CreateListLoc(&locList, 30);
     createQueue(&dafPesanan);
+    CreateBag(&bag);
     readConfig("config.txt", &locList, &mapRows, &mapCols, &adjMatrix, &dafPesanan);
 
     getLocationFromList(locList, &currentLoc, '8');
@@ -46,14 +49,20 @@ int main() {
         startWord();
 
         if (isSameString(currentWord, "MOVE")) {
-            move(locList, adjMatrix, &currentLoc, &time, heavyItemsAmount, isSpeedBoost, speedBoostCount);
-
+            move(locList, adjMatrix, &currentLoc, heavyItemsAmount, speedBoostDur);
+            time += addTime(speedBoostDur, heavyItemsAmount);
         } else if (isSameString(currentWord, "EXIT")) {
             printf("Apakah Anda yakin ingin meninggalkan game? Sesi ini tidak akan tersimpan. (y/n): ");
             startWord();
             if (isSameString(currentWord, "y")) {
                 gameLoop = false;
             }
+
+        } else if(isSameString(currentWord, "PICK UP")){
+            pick_up(bag, toDo, currentLoc, heavyItemsAmount);
+
+        } else if(isSameString(currentWord, "DROP OFF")){
+            drop_off(bag, currentLoc, heavyItemsAmount, money);
 
         } else {
             printf("Command salah, silahkan ulangi.\n");
