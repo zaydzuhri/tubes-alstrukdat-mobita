@@ -9,19 +9,19 @@
 #include "pesanan.h"
 
 #define IDX_UNDEF -1
-#define CAPACITY 100
+#define BAG_CAPACITY 100
 
-typedef Pesanan ElType;
+typedef Pesanan ElTypeBag;
 typedef struct {
-  ElType buffer[CAPACITY]; /* tabel penyimpan elemen */
-  int idxTop;              /* alamat TOP: elemen puncak */
-  int maxCapacity;          /* Kapasitas maksimum tas*/
+    ElTypeBag buffer[BAG_CAPACITY]; /* tabel penyimpan elemen */
+    int idxTop;                     /* alamat TOP: elemen puncak */
+    int maxCapacity;                /* Kapasitas maksimum tas*/
 } Bag;
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika s adalah Bag, maka akses elemen : */
 #define IDX_TOP(b) (b).idxTop
-#define     TOP(b) (b).buffer[(b).idxTop]
+#define TOP(b) (b).buffer[(b).idxTop]
 #define max_Cap(b) (b).maxCapacity
 
 /* *** Konstruktor/Kreator *** */
@@ -43,13 +43,13 @@ void increaseMaxCapacity(Bag *b);
 /* F.S. Kapasitas maksimal secara permanen bertambah 1*/
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void pushBag(Bag *b, ElType val);
+void pushBag(Bag *b, ElTypeBag val);
 /* Menambahkan val sebagai elemen Bag b */
 /* I.S. b mungkin kosong, tabel penampung elemen bag TIDAK penuh */
 /* F.S. val menjadi TOP yang baru,IDX_TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void popBag(Bag *b, ElType *val);
+void popBag(Bag *b, ElTypeBag *val);
 /* Menghapus val dari  Bag b */
 /* I.S. b tidak mungkin kosong */
 /* F.S. val adalah nilai elemen TOP yang lama, IDX_TOP berkurang 1 */

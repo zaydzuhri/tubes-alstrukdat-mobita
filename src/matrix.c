@@ -36,7 +36,7 @@ boolean isIdxEff(Matrix m, Index i, Index j) {
     return ((i >= 0 && i <= getLastIdxRow(m)) && (j >= 0 && j <= getLastIdxCol(m)));
 }
 /* Mengirimkan true jika i, j adalah Index efektif bagi m */
-ElType getElmtDiagonal(Matrix m, Index i) {
+ElTypeMat getElmtDiagonal(Matrix m, Index i) {
     return ELMT(m, i, i);
 }
 /* Mengirimkan elemen m(i,i) */
@@ -143,7 +143,7 @@ Matrix multiplyMatrix(Matrix m1, Matrix m2) {
 }
 /* Prekondisi : Ukuran kolom efektif m1 = ukuran baris efektif m2 */
 /* Mengirim hasil perkalian matriks: salinan m1 * m2 */
-Matrix multiplyConst(Matrix m, ElType x) {
+Matrix multiplyConst(Matrix m, ElTypeMat x) {
     Matrix m1;
     CreateMatrix(ROWS(m), COLS(m), &m);
     for (int i = 0; i < ROWS(m); i++) {
@@ -156,7 +156,7 @@ Matrix multiplyConst(Matrix m, ElType x) {
     return m1;
 }
 /* Mengirim hasil perkalian setiap elemen m dengan x */
-void pMultiplyConst(Matrix *m, ElType k) {
+void pMultiplyConst(Matrix *m, ElTypeMat k) {
     for (int i = 0; i < ROWS(*m); i++) {
         for (int j = 0; j < COLS(*m); j++) {
             ELMT(*m, i, j) = ELMT(*m, i, j) * k;

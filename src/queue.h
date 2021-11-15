@@ -12,7 +12,7 @@
 #define IDX_UNDEF -1
 #endif
 
-#define CAPACITY 30
+#define QUEUE_CAPACITY 30
 
 /* Definisi elemen dan address */
 typedef struct {
@@ -21,7 +21,7 @@ typedef struct {
 } PendingPesanan;
 
 typedef struct {
-    PendingPesanan buffer[CAPACITY];
+    PendingPesanan buffer[QUEUE_CAPACITY];
     int idxHead;
     int idxTail;
 } Queue;
@@ -40,9 +40,9 @@ typedef struct {
 
 /* Kreator Elemen */
 void createPendingPesanan(PendingPesanan *pp, int waktuMasuk, int kodePesanan, Location pickUpLocation, Location dropOffLocation, char jenisItem, int waktuHangus);
-    /* I.S. PendingPesanan pp sembarang. waktuMasuk, kodePesanan, pickUpLocation, dropOffLocation, jenisItem, dan waktuHangus terdefinisi. */
-    /* F.S. PendingPesanan pp terdefinisi berdasarkan parameter prosedur */
-    /* Jika jenis barang bukan perishable item, waktuHangus diset ke -99 */
+/* I.S. PendingPesanan pp sembarang. waktuMasuk, kodePesanan, pickUpLocation, dropOffLocation, jenisItem, dan waktuHangus terdefinisi. */
+/* F.S. PendingPesanan pp terdefinisi berdasarkan parameter prosedur */
+/* Jika jenis barang bukan perishable item, waktuHangus diset ke -99 */
 
 /* *** Kreator *** */
 void createQueue(Queue *q);

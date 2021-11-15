@@ -1,3 +1,4 @@
+#include "bag.h"
 #include "commands.h"
 #include "config.h"
 #include "daftarpesanan.h"
@@ -5,10 +6,9 @@
 #include "listdinloc.h"
 #include "matrix.h"
 #include "queue.h"
+#include "time.h"
 #include "todolist.h"
 #include "wordmachine.h"
-#include "time.h"
-#include "bag.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,7 +17,8 @@
 int main() {
     ListLoc locList;
     Matrix adjMatrix;
-    DaftarPesanan dafPesanan;
+    DaftarPesanan dafPesananBefore;
+    DaftarPesanan dafPesananAfter;
     ToDoList toDo;
     InProgressList inProgress;
     Bag bag;
@@ -37,9 +38,13 @@ int main() {
     Location currentLoc;
 
     CreateListLoc(&locList, 30);
-    createQueue(&dafPesanan);
+    createDaftarPesanan(&dafPesananBefore);
+    createDaftarPesanan(&dafPesananAfter);
     CreateBag(&bag);
-    readConfig("config.txt", &locList, &mapRows, &mapCols, &adjMatrix, &dafPesanan);
+    createToDoList(&toDo);
+    createInProgressList(&inProgress);
+
+    readConfig("config.txt", &locList, &mapRows, &mapCols, &adjMatrix, &dafPesananBefore);
 
     getLocationFromList(locList, &currentLoc, '8');
 
@@ -51,6 +56,7 @@ int main() {
         if (isSameString(currentWord, "MOVE")) {
             move(locList, adjMatrix, &currentLoc, heavyItemsAmount, speedBoostDur);
             time += addTime(speedBoostDur, heavyItemsAmount);
+
         } else if (isSameString(currentWord, "EXIT")) {
             printf("Apakah Anda yakin ingin meninggalkan game? Sesi ini tidak akan tersimpan. (y/n): ");
             startWord();
@@ -58,15 +64,19 @@ int main() {
                 gameLoop = false;
             }
 
-        } else if(isSameString(currentWord, "PICK UP")){
-            pick_up(bag, toDo, currentLoc, heavyItemsAmount);
+        } else if (isSameString(currentWord, "PICK_UP")) {
+            pick_up(bag, toDo, currentLoc, &heavyItemsAmount);
 
-        } else if(isSameString(currentWord, "DROP OFF")){
-            drop_off(bag, currentLoc, heavyItemsAmount, money);
+        } else if (isSameString(currentWord, "DROP_OFF")) {
+            drop_off(bag, currentLoc, &heavyItemsAmount, &money, speedBoostDur);
 
+        } else if (isSameString(currentWord, "TO_DO")) {
+            displayToDoList(toDo);
         } else {
             printf("Command salah, silahkan ulangi.\n");
         }
+
+        timeUpdateToDoList(&toDo, &dafPesananBefore, &dafPesananAfter, time);
     }
     return 0;
 }
