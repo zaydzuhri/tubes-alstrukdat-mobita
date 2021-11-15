@@ -38,4 +38,7 @@ void displayInProgressList(InProgressList ipl);
 /* I.S. InProgressList ipl terdefinisi */
 /* F.S. Ditampilkan jenis item dan lokasi dropoff setiap Pesanan dalam InProgressList ipl */
 
+boolean isInProgressListEmpty(InProgressList ipl);
+/* Mengembalikan true jika ipl kosong, false jika ipl tidak kosong */
+
 #endif

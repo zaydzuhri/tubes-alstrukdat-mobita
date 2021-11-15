@@ -126,3 +126,8 @@ void displayInProgressList(InProgressList ipl) {
         } while (p != NULL);
     }
 }
+
+boolean isInProgressListEmpty(InProgressList ipl){
+/* Mengembalikan true jika ipl kosong, false jika ipl tidak kosong */
+    return isLinkedListEmpty(ipl);
+}

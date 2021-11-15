@@ -89,3 +89,8 @@ void displayToDoList(ToDoList tdl) {
         } while (p != NULL);
     }
 }
+
+boolean isToDoListEmpty(ToDoList tdl){
+/* Mengembalikan true jika tdl kosong, false jika tidak kosong */
+    return isLinkedListEmpty(tdl);
+}

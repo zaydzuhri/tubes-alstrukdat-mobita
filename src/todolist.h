@@ -28,4 +28,7 @@ void displayToDoList(ToDoList tdl);
 /* I.S. ToDoList tdl terdefinisi */
 /* F.S. Ditampilkan lokasi pickup, lokasi dropoff, dan jenis item dari setiap Pesanan pada ToDoList */
 
+boolean isToDoListEmpty(ToDoList tdl);
+/* Mengembalikan true jika tdl kosong, false jika tidak kosong */
+
 #endif
