@@ -91,29 +91,41 @@ void drop_off(Bag *bag, Location l, InProgressList *inProgress, int *heavyItemsA
         } else {
             switch (JENIS_ITEM(p)) {
             case 'N':
-                strcpy(jenis, "Normal Item");
+                printf("Pesanan Normal Item berhasil diantarkan");
                 *uang += 200;
                 break;
             case 'H':
-                strcpy(jenis, "Heavy Item");
+                printf("Pesanan Heavy Item berhasil diantarkan");
                 *heavyItemsAmount -= 1;
                 *uang += 400;
                 *speedBoostDur += 10;
                 break;
             case 'P':
-                strcpy(jenis, "Perishable Item");
+                printf("Pesanan Perishable Item berhasil diantarkan");
                 *uang += 400;
                 increaseMaxCapacity(bag);
                 break;
             case 'V':
-                strcpy(jenis, "VIP Item");
+                printf("Pesanan VIP Item berhasil diantarkan");
                 *uang += 600;
                 break;
             default:
                 break;
             }
-            printf("Pesanan %c berhasil diantarkan", jenis);
             removeFromInProgressList(inProgress, p);
         }
     }
+}
+
+void help() {
+    printf("1. MOVE : Untuk berpindah ke lokasi lain pada map\n");
+    printf("2. MAP : Untuk melihat map dan lokasi player\n");
+    printf("3. PICK_UP : Untuk mengambil pesanan di lokasi sekarang\n");
+    printf("4. DROP_OFF : Untuk mengantarkan pesanan di lokasi sekarang\n");
+    printf("5. TO_DO : Untuk melihat pesanan dalam to-do list\n");
+    printf("6. IN_PROGRESS : Untuk melihat pesanan yang sedang diantar\n");
+    printf("7. BUY : Untuk membeli gadget, hanya dapat dibuka di headquarters\n");
+    printf("8. INVENTORY : Untuk melihat gadget yang dimiliki\n");
+    printf("9. HELP : Untuk melihat semua command yang tersedia\n");
+    printf("10. EXIT : Untuk keluar dari game loop\n");
 }
