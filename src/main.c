@@ -59,14 +59,14 @@ int main() {
     printf("===================================================\n");
     printf("ENTER COMMAND: ");
     startWord();
-    while(!isSameString(currentWord, "NEW_GAME") && !isSameString(currentWord, "EXIT")){
+    while (!isSameString(currentWord, "NEW_GAME") && !isSameString(currentWord, "EXIT")) {
         printf("Command not recognized!\nENTER NEW COMMAND: ");
         startWord();
     }
-    if (isSameString(currentWord, "NEW_GAME")){
+    if (isSameString(currentWord, "NEW_GAME")) {
         printf("Masukkan nama file konfigurasi level (jangan lupa \".txt\") : ");
         startWord();
-        while(!(access(currentWord.contents, F_OK)!=-1)){
+        while (!(access(currentWord.contents, F_OK) != -1)) {
             printf("Nama file tidak valid!\n");
             printf("Masukkan kembali nama file konfigurasi level (jangan lupa \".txt\") : ");
             startWord();
@@ -120,7 +120,7 @@ int main() {
             move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress);
 
         } else if (isSameString(currentWord, "MAP")) {
-            displayMap(mapRows, mapCols, time, locList, currentLoc, adjMatrix, toDo, inProgress);
+            displayMap(mapRows, mapCols, locList, currentLoc, adjMatrix, toDo, inProgress);
 
         } else if (isSameString(currentWord, "PICK_UP")) {
             pick_up(&bag, &toDo, &inProgress, currentLoc, &heavyItemsAmount);
@@ -139,6 +139,9 @@ int main() {
 
         } else if (isSameString(currentWord, "INVENTORY")) {
             displayInventory(&inventory);
+
+        } else if (isSameString(currentWord, "HELP")) {
+            help();
 
         } else if (isSameString(currentWord, "EXIT")) {
             printf("Apakah Anda yakin ingin meninggalkan game? Sesi ini tidak akan tersimpan. (y/n): ");

@@ -16,3 +16,5 @@ void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, 
 void pick_up(Bag *bag, ToDoList *tdlist, InProgressList *inplist, Location l, int *heavyItemsAmout);
 
 void drop_off(Bag *bag, Location l, InProgressList *inProgress, int *heavyItemsAmount, int *uang, int *speedBoostDur);
+
+void help();
