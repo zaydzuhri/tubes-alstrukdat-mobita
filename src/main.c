@@ -2,8 +2,10 @@
 #include "commands.h"
 #include "config.h"
 #include "daftarpesanan.h"
+#include "gadget.h"
 #include "inprogresslist.h"
 #include "listdinloc.h"
+#include "map.h"
 #include "matrix.h"
 #include "queue.h"
 #include "time.h"
@@ -22,6 +24,7 @@ int main() {
     ToDoList toDo;
     InProgressList inProgress;
     Bag bag;
+    GadgetList inventory;
 
     int mapRows = 0;
     int mapCols = 0;
@@ -43,6 +46,7 @@ int main() {
     CreateBag(&bag);
     createToDoList(&toDo);
     createInProgressList(&inProgress);
+    CreateInventory(&inventory);
 
     readConfig("config.txt", &locList, &mapRows, &mapCols, &adjMatrix, &dafPesananBefore);
 
@@ -54,8 +58,28 @@ int main() {
         startWord();
 
         if (isSameString(currentWord, "MOVE")) {
-            move(locList, adjMatrix, &currentLoc, heavyItemsAmount, speedBoostDur);
-            time += addTime(speedBoostDur, heavyItemsAmount);
+            move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress);
+
+        } else if (isSameString(currentWord, "MAP")) {
+            displayMap(mapRows, mapCols, time, locList, currentLoc, adjMatrix, toDo, inProgress);
+
+        } else if (isSameString(currentWord, "PICK_UP")) {
+            pick_up(&bag, &toDo, &inProgress, currentLoc, &heavyItemsAmount);
+
+        } else if (isSameString(currentWord, "DROP_OFF")) {
+            drop_off(&bag, currentLoc, &inProgress, &heavyItemsAmount, &money, &speedBoostDur);
+
+        } else if (isSameString(currentWord, "TO_DO")) {
+            displayToDoList(toDo);
+
+        } else if (isSameString(currentWord, "IN_PROGRESS")) {
+            displayInProgressList(inProgress);
+
+        } else if (isSameString(currentWord, "BUY")) {
+            displayShop(&inventory, &money);
+
+        } else if (isSameString(currentWord, "INVENTORY")) {
+            displayInventory(&inventory);
 
         } else if (isSameString(currentWord, "EXIT")) {
             printf("Apakah Anda yakin ingin meninggalkan game? Sesi ini tidak akan tersimpan. (y/n): ");
@@ -64,19 +88,12 @@ int main() {
                 gameLoop = false;
             }
 
-        } else if (isSameString(currentWord, "PICK_UP")) {
-            pick_up(bag, toDo, currentLoc, &heavyItemsAmount);
-
-        } else if (isSameString(currentWord, "DROP_OFF")) {
-            drop_off(bag, currentLoc, &heavyItemsAmount, &money, speedBoostDur);
-
-        } else if (isSameString(currentWord, "TO_DO")) {
-            displayToDoList(toDo);
         } else {
             printf("Command salah, silahkan ulangi.\n");
         }
 
         timeUpdateToDoList(&toDo, &dafPesananBefore, &dafPesananAfter, time);
+        removeExpiredPerishables(&inProgress);
     }
     return 0;
 }

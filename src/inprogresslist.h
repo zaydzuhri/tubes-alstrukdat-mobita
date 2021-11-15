@@ -4,8 +4,8 @@
 #ifndef INPROGRESSLIST_H
 #define INPROGRESSLIST_H
 
-#include "linkedlist.h"
 #include "daftarpesanan.h"
+#include "linkedlist.h"
 #include <stdio.h>
 
 typedef LinkedList InProgressList;
@@ -26,7 +26,7 @@ void removeExpiredPerishables(InProgressList *ipl);
 /* I.S. InProgressList ipl terdefinisi */
 /* F.S. Pesanan yang itemnya berupa perishable dan durasinya sudah mencapai 0 atau -1 dihapus dari ipl */
 
-void reduceAllPerishablesTime(InProgressList *ipl);
+void reduceAllPerishablesTime(InProgressList *ipl, int reduction);
 /* I.S. InProgressList ipl terdefinisi */
 /* F.S. Pesanan di ipl yang merupakan perishable durasinya akan dikurangi 1 */
 

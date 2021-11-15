@@ -1,7 +1,7 @@
 #include "commands.h"
 #include <stdlib.h>
 
-void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, int speedBoostDur) {
+void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, int *speedBoostDur, int *time, InProgressList *inProgress) {
     printf("Posisi yang dapat dicapai:\n");
 
     ListLoc adjLocList;
@@ -30,88 +30,82 @@ void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, 
         }
     }
 
-    // if (!exit) {
-    //     if (isSpeedBoost) {
-    //         if (speedBoostCount % 2 != 0) {
-    //             *time++;
-    //         }
-    //         speedBoostCount++;
-    //     } else {
-    //         *time += 1 + heavyItems;
-    //     }
-    // }
+    if (!exit) {
+        addTime(time, speedBoostDur, heavyItems, inProgress);
+    }
 }
 
-void pick_up(Bag bag, ToDoList tdlist, Location l, int *heavyItemsAmount){
-    if(isBagFull(bag)){
+void pick_up(Bag *bag, ToDoList *tdlist, InProgressList *inplist, Location l, int *heavyItemsAmount) {
+    if (isBagFull(*bag)) {
         printf("Tas Sudah Penuh ! Antarkan pesanan dahulu !");
         printf("\n");
     }
 
-    else{
+    else {
         boolean pick = true;
-        Address pos = tdlist;
-        while(pos != NULL && pick){
-            if(LOC_NAME(PICK_UP_LOCATION(INFO(pos))) == LOC_NAME(l)){
-                pushBag(&bag,INFO(pos));
-                char jenisItem = JENIS_ITEM(INFO(pos));
-                pick = false;
-                switch (JENIS_ITEM(INFO(pos)))
-                {
-                case 'n':
-                    printf("Pesanan berupa Normal Item berhasil di pick up!");
-                    break;
-                case 'h':
-                    *heavyItemsAmount++;
-                    printf("Pesanan berupa Heavy Item berhasil di pick up!");
-                    break;
-                case 'p':
-                    printf("Pesanan berupa Perishable item berhasil di pick up!");
-                    break;
-                case 'v':
-                    printf("Pesanan berupa VIP Item berhasil di pick up!");
-                    break;
-                default:
-                    printf("Pesanan berhasil di pick up!");
-                    break;
-                }
-                printf("\n");
-            }else{
-                pos = NEXT(pos);
+        boolean pickUpSuccess;
+        Pesanan pesanan;
+        Address pos = *tdlist;
+
+        pickUpUpdateToDoList(tdlist, l, &pesanan, &pickUpSuccess);
+        if (pickUpSuccess) {
+            pushBag(bag, pesanan);
+            char jenisItem = JENIS_ITEM(pesanan);
+            pick = false;
+            switch (jenisItem) {
+            case 'N':
+                printf("Pesanan berupa Normal Item berhasil di pick up!");
+                break;
+            case 'H':
+                *heavyItemsAmount += 1;
+                printf("Pesanan berupa Heavy Item berhasil di pick up!");
+                break;
+            case 'P':
+                printf("Pesanan berupa Perishable item berhasil di pick up!");
+                break;
+            case 'V':
+                printf("Pesanan berupa VIP Item berhasil di pick up!");
+                break;
+            default:
+                printf("Pesanan berhasil di pick up!");
+                break;
             }
+            printf("\n");
+            AddToInProgressList(inplist, pesanan);
+        } else {
+            printf("Tidak ada pesanan di lokasi ini.\n");
         }
     }
 }
 
-void drop_off(Bag bag, Location l, int *heavyItemsAmount, int *uang, int speedBoostDur){
-    if(isBagEmpty(bag)){
+void drop_off(Bag *bag, Location l, InProgressList *inProgress, int *heavyItemsAmount, int *uang, int *speedBoostDur) {
+    if (isBagEmpty(*bag)) {
         printf("Tidak ada pesanan yang dapat diantarkan!");
-    }else{
+    } else {
         Pesanan p;
         char jenis[15] = "item";
-        popBag(&bag, &p);
-        if(!(isSameLoc(l, DROP_OFF_LOCATION(p)))){
-            pushBag(&bag, p);
+        popBag(bag, &p);
+        if (!(isSameLoc(l, DROP_OFF_LOCATION(p)))) {
+            pushBag(bag, p);
             printf("Lokasi salah!");
-        }else{
-            switch (JENIS_ITEM(p))
-            {
-            case 'n':
+        } else {
+            switch (JENIS_ITEM(p)) {
+            case 'N':
                 strcpy(jenis, "Normal Item");
                 *uang += 200;
                 break;
-            case 'h':
+            case 'H':
                 strcpy(jenis, "Heavy Item");
-                *heavyItemsAmount--;
+                *heavyItemsAmount -= 1;
                 *uang += 400;
-                speedBoostDur += 10;
+                *speedBoostDur += 10;
                 break;
-            case 'p':
+            case 'P':
                 strcpy(jenis, "Perishable Item");
                 *uang += 400;
-                increaseMaxCapacity(&bag);
+                increaseMaxCapacity(bag);
                 break;
-            case 'v':
+            case 'V':
                 strcpy(jenis, "VIP Item");
                 *uang += 600;
                 break;
@@ -119,7 +113,7 @@ void drop_off(Bag bag, Location l, int *heavyItemsAmount, int *uang, int speedBo
                 break;
             }
             printf("Pesanan %c berhasil diantarkan", jenis);
+            removeFromInProgressList(inProgress, p);
         }
     }
-
 }
