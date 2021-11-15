@@ -48,31 +48,39 @@ void displayMap(int mapRows, int mapCols, int time, ListLoc locL, Location curLo
         }
     } 
 
-    for (i = 1; i < ROWS(M) - 1; i++) {
-        for (j = 1; j < COLS(M) - 1; j++) {
+    for (i = 0; i < ROWS(M); i++) {
+        for (j = 0; j < COLS(M); j++) {
+            // print hijau untuk destination dari current location
             for (k = 0; k < NEFF(dest); k++) {
-                p = FIRST(todoL);
-                while (p != NULL) {
-                    if (ELMT(M,i,j) == (int) LOC_NAME(curLoc)) {
-                        print_yellow((char) ELMT(M,i,j));
-                    }
-                    else if (KODE_PESANAN(INFO(p)) >= time && (int) LOC_NAME(PICK_UP_LOCATION(INFO(p))) == ELMT(M,i,j)) {
-                        print_red((char) ELMT(M,i,j));
-                    }
-                    else if ((int) LOC_NAME(DROP_OFF_LOCATION(INFO(FIRST(progL)))) == ELMT(M,i,j)) {
-                        print_blue((char) ELMT(M,i,j));
-                    }
-                    else if (ELMT(M,i,j) == (int) LOC_NAME(LOC(dest,k))) {
-                        print_green((char) ELMT(M,i,j));
-                    }
-                    else {
-                        printf("%c", (char) ELMT(M,i,j));
-                    }
+                if (ELMT(M,i,j) == (int) LOC_NAME(LOC(dest,k))) {
+                    print_green((char) ELMT(M,i,j));
                 }
+            }
+
+            // print merah untuk tempat pickup location
+            p = FIRST(todoL);
+            while (p != NULL) {
+                if (KODE_PESANAN(INFO(p)) >= time && (int) LOC_NAME(PICK_UP_LOCATION(INFO(p))) == ELMT(M,i,j)) {
+                    print_red((char) ELMT(M,i,j));
+                }
+            }
+
+            // print orange untuk current location
+            if (ELMT(M,i,j) == (int) LOC_NAME(curLoc)) {
+                print_yellow((char) ELMT(M,i,j));
+            }
+
+            // print biru untuk tempat drop off item teratas
+            else if ((int) LOC_NAME(DROP_OFF_LOCATION(INFO(FIRST(progL)))) == ELMT(M,i,j)) {
+                print_blue((char) ELMT(M,i,j));
+            }
+
+            // print hitam untuk lainya
+            else {
+                printf("%c", (char) ELMT(M,i,j));
             }
         }
         printf("\n");
     }
     printf("\n");
-
 };
