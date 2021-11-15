@@ -25,7 +25,7 @@ void CreateMap(int mapRows, int mapCols, Matrix *M) {
     }
 };
 
-void displayMap(int mapRows, int mapCols, int time, ListLoc locL, Location curLoc, Matrix adjM, ToDoList todoL, InProgressList progL) {
+void displayMap(int mapRows, int mapCols, ListLoc locL, Location curLoc, Matrix adjM, ToDoList todoL, InProgressList progL) {
     /*  I.S. mapRows, mapCols, time, locL, curLoc, adjM, todoL, progL terdefinisi.
     F.S. Menuliskan peta  */
     /* KAMUS */
