@@ -7,6 +7,7 @@
 #include "boolean.h"
 #include "charmachine.h"
 #include <stdio.h>
+#include <string.h>
 
 #define CAP 50
 #define BLANK ' '

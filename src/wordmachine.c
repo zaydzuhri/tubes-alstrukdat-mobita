@@ -118,9 +118,13 @@ void copyWord() {
 }
 
 boolean isSameString(Word str1, char str2[]) {
-    boolean isSame = true;
-    for (int i = 0; i < str1.length && isSame; i++) {
-        isSame = str1.contents[i] == str2[i];
+    if (strlen(str1.contents) == strlen(str2)) {
+        boolean isSame = true;
+        for (int i = 0; i < str1.length && isSame; i++) {
+            isSame = str1.contents[i] == str2[i];
+        }
+        return isSame;
+    } else {
+        return false;
     }
-    return isSame;
 }
