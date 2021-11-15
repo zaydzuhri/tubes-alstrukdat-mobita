@@ -48,8 +48,8 @@ void displayMap(int mapRows, int mapCols, int time, ListLoc locL, Location curLo
         }
     } 
 
-    for (i = 1; i < ROWS(M) - 1; i++) {
-        for (j = 1; j < COLS(M) - 1; j++) {
+    for (i = 0; i < ROWS(M); i++) {
+        for (j = 0; j < COLS(M); j++) {
             // print hijau untuk destination dari current location
             for (k = 0; k < NEFF(dest); k++) {
                 if (ELMT(M,i,j) == (int) LOC_NAME(LOC(dest,k))) {
