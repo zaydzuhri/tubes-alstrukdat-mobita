@@ -9,7 +9,15 @@ Created at: 17/10/2019
 #define GADGET_H
 
 #include "listpos.h"
+#include "pesanan.h"
 #include "boolean.h"
+#include "daftarpesanan.h"
+#include "bag.h"
+#include "location.h"
+#include "listdinloc.h"
+#include "todolist.h"
+#include "inprogresslist.h"
+#include "map.h"
 
 typedef int Gadget;
 typedef ListPos GadgetList;
@@ -40,7 +48,7 @@ void removeGadget(GadgetList *IG, int idx);
 // I.S. g, ig terdefinisi dan g ada di IG
 // F.S. g dihapus ke inventory
 
-void useGadget(GadgetList *IG);
+void useGadget(GadgetList *IG, DaftarPesanan dp, Bag *b, int mapRows, int mapCols, int *time, ListLoc locL, Location *curLoc, Matrix adjM, ToDoList todoL, InProgressList *progL);
 // I.S. IG, g terdefinisi
 /* F.S. jika g ada pada IG, g dihapus dari IG, g menjadi aktif, 
     jika tidak ada, keluarkan pesan gagal*/
@@ -63,5 +71,19 @@ void displayInventory(GadgetList *IG);
     jika berhasil, program akan menampilkan pesan berhasil,
     jika gagal, program akan menampilkan pesan gagal*/
 
+void kainEffect(DaftarPesanan dp,Bag *b, InProgressList *ipl);
+// I.S. Kain Pembungkus Waktu dipilih dalam prosedur useGadget
+/* F.S. Jika item paling atas dalam tas ialah perishible item, waktu hangusnya kembali ke semula */
 
+void pembesarEffect(Bag *b);
+// I.S. Senter Pembesar dipilih dalam prosedur useGadget
+/* F.S. Jika dua kali kapasitas tas <= kapasitas maksimum, kapasitas tas dikali 2 */
+
+void pintuEffect(int mapRows, int mapCols, int time, ListLoc locL, Location *curLoc, Matrix adjM, ToDoList todoL, InProgressList progL);
+// I.S. Pintu Kemana Saja dipilih dalam prosedur useGadget
+/* F.S. Berhasil berpindah ke lokasi lain, waktu tidak bertambah */
+
+void mesinWaktuEffect(int *time);
+// I.S. Mesin Waktu dipilih dalam prosedur useGadget
+/* F.S. Jika item paling atas dalam tas ialah perishible item, waktu hangusnya kembali ke semula */
 #endif // !1

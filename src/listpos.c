@@ -161,7 +161,7 @@ boolean isListPosEqual(ListPos l1, ListPos l2){
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */
-int indexOfListPos(ListPos l, ElType val){
+int indexOfListPos(ListPos l, ElTypeListPos val){
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
@@ -181,7 +181,7 @@ int indexOfListPos(ListPos l, ElType val){
 }
 
 /* ********** NILAI EKSTREM ********** */
-void extremesListPos(ListPos l, ElType *max, ElType *min){
+void extremesListPos(ListPos l, ElTypeListPos *max, ElTypeListPos *min){
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
@@ -220,7 +220,7 @@ void sortListPos(ListPos *l, boolean asc){
    algoritma bebas */
     /* KAMUS */
     int i,j, len;
-    ElType tmp;
+    ElTypeListPos tmp;
     /* ALGORITMA */
     len = lengthListPos(*l);
     for(int i=0; i<len; i++){
@@ -236,7 +236,7 @@ void sortListPos(ListPos *l, boolean asc){
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertLastListPos(ListPos *l, ElType val){
+void insertLastListPos(ListPos *l, ElTypeListPos val){
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
@@ -250,7 +250,7 @@ void insertLastListPos(ListPos *l, ElType val){
     ELMTListPos(*l,i) = val;
 }
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLastListPos(ListPos *l, ElType *val){
+void deleteLastListPos(ListPos *l, ElTypeListPos *val){
 /* Proses : Menghapus elemen terakhir List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
@@ -267,7 +267,7 @@ void deleteLastListPos(ListPos *l, ElType *val){
     ELMTListPos(*l,i-1) = VAL_UNDEF;
 }
 
-void deleteAtListPos(ListPos *l, ElType *val, int idx){
+void deleteAtListPos(ListPos *l, ElTypeListPos *val, int idx){
 /* Proses : Menghapus elemen dengan indeks idx */
 /* I.S. List tidak kosong, idx merupakan indeks yang tedefinisi untuk l */
 /* F.S. val adalah nilai elemen yang dihapus */
