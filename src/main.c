@@ -33,6 +33,7 @@ int main() {
     int capTas = 3;
     int heavyItemsAmount = 0;
 
+    int amountDropped = 0;
     int money = 0;
     int time = 0;
 
@@ -120,13 +121,13 @@ int main() {
             move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress);
 
         } else if (isSameString(currentWord, "MAP")) {
-            displayMap(mapRows, mapCols, locList, currentLoc, adjMatrix, toDo, inProgress);
+            displayMap(mapRows, mapCols, locList, currentLoc, adjMatrix, toDo, bag);
 
         } else if (isSameString(currentWord, "PICK_UP")) {
             pick_up(&bag, &toDo, &inProgress, currentLoc, &heavyItemsAmount);
 
         } else if (isSameString(currentWord, "DROP_OFF")) {
-            drop_off(&bag, currentLoc, &inProgress, &heavyItemsAmount, &money, &speedBoostDur);
+            drop_off(&bag, currentLoc, &inProgress, &heavyItemsAmount, &money, &speedBoostDur,&amountDropped);
 
         } else if (isSameString(currentWord, "TO_DO")) {
             displayToDoList(toDo);
@@ -156,6 +157,19 @@ int main() {
 
         timeUpdateToDoList(&toDo, &dafPesananBefore, &dafPesananAfter, time);
         removeExpiredPerishables(&inProgress);
+
+        if (isDaftarPesananEmpty(dafPesananBefore) && isToDoListEmpty(toDo) && isInProgressListEmpty(inProgress)){
+            printf("Selamat, kamu sudah berhasil membantu Mobita mengantarkan seluruh pesanan usaha orang tuanya! \n");
+            while(LOC_NAME(currentLoc) != '8'){
+                printf("Kembali ke Headquarters untuk menyelesaikan game ini !\n");
+                move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress);
+            }
+            printf("Terimakasih sudah membantu Mobita mengantarkan ");
+            printf("%d item", &amountDropped);
+            printf(" selama %d satuan waktu !\n", &time);
+            printf(" Sampai jumpa lagi !!!");
+            gameLoop = false;
+        }
     }
     return 0;
 }
