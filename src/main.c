@@ -147,6 +147,10 @@ int main() {
         } else if (isSameString(currentWord, "EXIT")) {
             printf("Apakah Anda yakin ingin meninggalkan game? Sesi ini tidak akan tersimpan. (y/n): ");
             startWord();
+            while(!isSameString(currentWord,"y") && !isSameString(currentWord, "n")){
+                printf("Command salah, silahkan ulangi.\n");
+                startWord();
+            }
             if (isSameString(currentWord, "y")) {
                 gameLoop = false;
             }
@@ -159,7 +163,14 @@ int main() {
         removeExpiredPerishables(&inProgress);
 
         if (isDaftarPesananEmpty(dafPesananBefore) && isToDoListEmpty(toDo) && isInProgressListEmpty(inProgress)){
-            printf("Selamat, kamu sudah berhasil membantu Mobita mengantarkan seluruh pesanan usaha orang tuanya! \n");
+            printf("░█████╗░░█████╗░███╗░░██╗░██████╗░██████╗░░█████╗░████████╗██╗░░░██╗██╗░░░░░░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗\n");
+            printf("██╔══██╗██╔══██╗████╗░██║██╔════╝░██╔══██╗██╔══██╗╚══██╔══╝██║░░░██║██║░░░░░██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝\n");
+            printf("██║░░╚═╝██║░░██║██╔██╗██║██║░░██╗░██████╔╝███████║░░░██║░░░██║░░░██║██║░░░░░███████║░░░██║░░░██║██║░░██║██╔██╗██║╚█████╗░\n");
+            printf("██║░░██╗██║░░██║██║╚████║██║░░╚██╗██╔══██╗██╔══██║░░░██║░░░██║░░░██║██║░░░░░██╔══██║░░░██║░░░██║██║░░██║██║╚████║░╚═══██╗\n");
+            printf("╚█████╔╝╚█████╔╝██║░╚███║╚██████╔╝██║░░██║██║░░██║░░░██║░░░╚██████╔╝███████╗██║░░██║░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝\n");
+            printf("░╚════╝░░╚════╝░╚═╝░░╚══╝░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░\n");
+            printf("Kamu sudah berhasil membantu Mobita mengantarkan seluruh pesanan usaha orang tuanya! \n");
+            sleep(1);
             while(LOC_NAME(currentLoc) != '8'){
                 printf("Kembali ke Headquarters untuk menyelesaikan game ini !\n");
                 move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress);
@@ -167,7 +178,15 @@ int main() {
             printf("Terimakasih sudah membantu Mobita mengantarkan ");
             printf("%d item", &amountDropped);
             printf(" selama %d satuan waktu !\n", &time);
-            printf(" Sampai jumpa lagi !!!");
+            sleep(1);
+            printf("░██████╗███████╗███████╗  ██╗░░░██╗  ██╗░░░░░░█████╗░████████╗███████╗██████╗░\n");
+            printf("██╔════╝██╔════╝██╔════╝  ██║░░░██║  ██║░░░░░██╔══██╗╚══██╔══╝██╔════╝██╔══██╗\n");
+            printf("╚█████╗░█████╗░░█████╗░░  ██║░░░██║  ██║░░░░░███████║░░░██║░░░█████╗░░██████╔╝\n");
+            printf("░╚═══██╗██╔══╝░░██╔══╝░░  ██║░░░██║  ██║░░░░░██╔══██║░░░██║░░░██╔══╝░░██╔══██╗\n");
+            printf("██████╔╝███████╗███████╗  ╚██████╔╝  ███████╗██║░░██║░░░██║░░░███████╗██║░░██║\n");
+            printf("╚═════╝░╚══════╝╚══════╝  ░╚═════╝░  ╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝\n");
+            fflush(stdout);
+            sleep(3);
             gameLoop = false;
         }
     }
