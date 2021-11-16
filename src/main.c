@@ -34,7 +34,7 @@ int main() {
     int heavyItemsAmount = 0;
 
     int amountDropped = 0;
-    int money = 2000;
+    int money = 0;
     int time = 0;
 
     int speedBoostDur = 0;
