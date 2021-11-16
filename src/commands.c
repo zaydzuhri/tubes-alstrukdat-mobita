@@ -78,7 +78,7 @@ void pick_up(Bag *bag, ToDoList *tdlist, InProgressList *inplist, Location l, in
     }
 }
 
-void drop_off(Bag *bag, Location l, InProgressList *inProgress, int *heavyItemsAmount, int *uang, int *speedBoostDur) {
+void drop_off(Bag *bag, Location l, InProgressList *inProgress, int *heavyItemsAmount, int *uang, int *speedBoostDur, int *amountDropped) {
     if (isBagEmpty(*bag)) {
         printf("Tidak ada pesanan yang dapat diantarkan!");
     } else {
@@ -93,21 +93,25 @@ void drop_off(Bag *bag, Location l, InProgressList *inProgress, int *heavyItemsA
             case 'N':
                 printf("Pesanan Normal Item berhasil diantarkan");
                 *uang += 200;
+                *amountDropped++;
                 break;
             case 'H':
                 printf("Pesanan Heavy Item berhasil diantarkan");
                 *heavyItemsAmount -= 1;
                 *uang += 400;
                 *speedBoostDur += 10;
+                *amountDropped++;
                 break;
             case 'P':
                 printf("Pesanan Perishable Item berhasil diantarkan");
                 *uang += 400;
                 increaseMaxCapacity(bag);
+                *amountDropped++;
                 break;
             case 'V':
                 printf("Pesanan VIP Item berhasil diantarkan");
                 *uang += 600;
+                *amountDropped++;
                 break;
             default:
                 break;
