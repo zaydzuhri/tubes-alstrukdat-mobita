@@ -1,6 +1,4 @@
 // Driver ADT DaftarPesanan
-// Compile command : gcc -o mdaftarpesanan.exe mdaftarpesanan.c daftarpesanan.c pesanan.c queue.c location.c point.c
-
 
 #include "daftarpesanan.h"
 #include <stdio.h>

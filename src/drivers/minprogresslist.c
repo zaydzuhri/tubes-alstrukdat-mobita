@@ -1,5 +1,4 @@
 // Driver ADT InProgressList
-// Compile command: gcc -o minprogresslist.exe minprogresslist.c inprogresslist.c linkedlist.c node.c pesanan.c location.c point.c
 
 #include "inprogresslist.h"
 

@@ -9,7 +9,7 @@ void createInProgressList(InProgressList *ipl) {
 void AddToInProgressList(InProgressList *ipl, Pesanan p) {
     /* I.S. InProgressList ipl dan Pesanan p terdefinisi */
     /* F.S. Pesanan p ditambahkan di paling belakang InProgressList ipl */
-    insertFirstLinkedList(ipl, p);
+    insertLastLinkedList(ipl, p);
 }
 
 void removeFromInProgressList(InProgressList *ipl, Pesanan p) {

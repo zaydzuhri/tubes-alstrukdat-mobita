@@ -1,5 +1,4 @@
 // Driver ADT LinkedList
-// Compile command : gcc -o mlinkedlist.exe mlinkedlist.c linkedlist.c pesanan.c location.c point.c node.c
 
 #include "linkedlist.h"
 #include <stdio.h>
