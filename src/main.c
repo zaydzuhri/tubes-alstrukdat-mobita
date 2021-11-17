@@ -119,7 +119,7 @@ int main() {
         startWord();
 
         if (isSameString(currentWord, "MOVE")) {
-            move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress);
+            move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress, &bag);
 
         } else if (isSameString(currentWord, "MAP")) {
             displayMap(mapRows, mapCols, locList, currentLoc, adjMatrix, toDo, bag);
@@ -179,7 +179,7 @@ int main() {
             sleep(1);
             while (LOC_NAME(currentLoc) != '8') {
                 printf("Kembali ke Headquarters untuk menyelesaikan game ini !\n");
-                move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress);
+                move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress, &bag);
             }
             printf("Terimakasih sudah membantu Mobita mengantarkan ");
             printf("%d item", &amountDropped);

@@ -54,4 +54,15 @@ void popBag(Bag *b, ElTypeBag *val);
 /* I.S. b tidak mungkin kosong */
 /* F.S. val adalah nilai elemen TOP yang lama, IDX_TOP berkurang 1 */
 
+int bagCapacity(Bag b);
+/* Mengirim kapasitas bag saat ini*/
+
+void reducePersihablesTimeBag(Bag *b, int reduction);
+/* I.S. Bag b terdefinisi*/
+/* F.S. Pesanan di dalam Bag b yang merupakan perishable item akan berkurang waktunya sebanyak reduction*/
+
+void deletePershablesFromBag(Bag *b);
+    /* I.S. Bag b terdefinisi */
+    /* F.S. Pesanan di Bag b yang berupa perishable item dan sudah habis waktunya akan hilang */
+
 #endif

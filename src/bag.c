@@ -47,3 +47,45 @@ void popBag(Bag *b, ElTypeBag *val) {
     IDX_TOP(*b)
     --;
 }
+
+int bagCapacity(Bag b){
+/* Mengirim kapasitas maksimal bag saat ini*/
+    return max_Cap(b);
+}
+
+void reducePersihablesTimeBag(Bag *b, int reduction){
+/* I.S. Bag b terdefinisi*/
+/* F.S. Pesanan di dalam Bag b yang merupakan perishable item akan berkurang waktunya sebanyak reduction*/
+    Bag tempBag;
+    Pesanan tempPesanan;
+    CreateBag(&tempBag);
+    while(!isBagEmpty(*b)){
+        popBag(b, &tempPesanan);
+        if(JENIS_ITEM(tempPesanan)=='P'&&WAKTU_HANGUS(tempPesanan)>=reduction){
+            WAKTU_HANGUS(tempPesanan) -= reduction;
+        }
+        pushBag(&tempBag, tempPesanan);
+    }
+    while(!isBagEmpty(tempBag)){
+        popBag(&tempBag, &tempPesanan);
+        pushBag(b, tempPesanan);
+    }
+}
+
+void deletePershablesFromBag(Bag *b){
+    /* I.S. Bag b terdefinisi */
+    /* F.S. Pesanan di Bag b yang berupa perishable item dan sudah habis waktunya akan hilang */
+    Bag tempBag;
+    while(!isBagEmpty(*b)){
+        Pesanan tempPesanan;
+        popBag(b, &tempPesanan);
+        if(JENIS_ITEM(tempPesanan)!='P' || (JENIS_ITEM(tempPesanan)=='P' && WAKTU_HANGUS(tempPesanan)>0)){
+            pushBag(&tempBag, tempPesanan);
+        }  
+    }
+    while(!isBagEmpty(tempBag)){
+        Pesanan tempPesanan;
+        popBag(&tempBag, &tempPesanan);
+        pushBag(b, tempPesanan);
+    }
+}

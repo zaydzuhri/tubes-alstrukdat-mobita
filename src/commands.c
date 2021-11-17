@@ -1,7 +1,7 @@
 #include "commands.h"
 #include <stdlib.h>
 
-void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, int *speedBoostDur, int *time, InProgressList *inProgress) {
+void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, int *speedBoostDur, int *time, InProgressList *inProgress, Bag *bag) {
     printf("Posisi yang dapat dicapai:\n");
 
     ListLoc adjLocList;
@@ -31,7 +31,7 @@ void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, 
     }
 
     if (!exit) {
-        addTime(time, speedBoostDur, heavyItems, inProgress);
+        addTime(time, speedBoostDur, heavyItems, inProgress, bag);
     }
 }
 

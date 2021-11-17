@@ -67,6 +67,7 @@ int main(){
     }else{printf("no\n");}
     printf("\nMeningkatkan kapasitas tas...\n");
     increaseMaxCapacity(&b);
+    printf("Kapasitas tas saat ini : %d", bagCapacity(b));
     printf("Apakah bag penuh?\n");
     if(isBagFull(b)){
         printf("yes\n");
