@@ -53,7 +53,7 @@ int bagCapacity(Bag b){
     return max_Cap(b);
 }
 
-void reducePersihablesTimeBag(Bag *b, int reduction){
+void reducePerishablesTimeBag(Bag *b, int reduction){
 /* I.S. Bag b terdefinisi*/
 /* F.S. Pesanan di dalam Bag b yang merupakan perishable item akan berkurang waktunya sebanyak reduction*/
     Bag tempBag;
@@ -61,7 +61,7 @@ void reducePersihablesTimeBag(Bag *b, int reduction){
     CreateBag(&tempBag);
     while(!isBagEmpty(*b)){
         popBag(b, &tempPesanan);
-        if(JENIS_ITEM(tempPesanan)=='P'&&WAKTU_HANGUS(tempPesanan)>=reduction){
+        if(JENIS_ITEM(tempPesanan)=='P'){
             WAKTU_HANGUS(tempPesanan) -= reduction;
         }
         pushBag(&tempBag, tempPesanan);
@@ -72,7 +72,7 @@ void reducePersihablesTimeBag(Bag *b, int reduction){
     }
 }
 
-void deletePershablesFromBag(Bag *b){
+void deletePerishablesFromBag(Bag *b){
     /* I.S. Bag b terdefinisi */
     /* F.S. Pesanan di Bag b yang berupa perishable item dan sudah habis waktunya akan hilang */
     Bag tempBag;

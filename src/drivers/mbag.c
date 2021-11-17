@@ -81,9 +81,9 @@ int main(){
     displayPesanan(curPesanan);
     sleep(1);
     printf("Mengurangi waktu sebanyak 5\n");
-    reducePersihablesTimeBag(&b, 5);
+    reducePerishablesTimeBag(&b, 5);
     printf("\nMenghapus item perishable yang sudah hangus");
-    deletePershablesFromBag(&b);
+    deletePerishablesFromBag(&b);
     printf("Mengeluarkan pesanan yang ada\n");
     while(!isBagEmpty(b)){
         popBag(&b, &curPesanan);
