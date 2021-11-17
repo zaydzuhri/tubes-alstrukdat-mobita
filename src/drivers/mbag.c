@@ -1,6 +1,8 @@
 /*Driver ADT Bag*/
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "bag.h"
 #include "pesanan.h"
 
@@ -23,7 +25,7 @@ int main(){
         // Lokasi drop off = lokasiB
         // Jenis item = 'n'     (Normal item)
         // Jenis item bukan item perishable sehingga waktu hangus diset sembarang
-    createPesanan(&pesanan1, 1, lokasiA, lokasiB, 'n', -99);
+    createPesanan(&pesanan1, 1, lokasiA, lokasiB, 'N', -99);
     printf("Pesanan 1:\n");
     displayPesanan(pesanan1);
     printf("\n");
@@ -35,7 +37,7 @@ int main(){
         // Lokasi drop off = lokasiC
         // Jenis item = 'h'     (Heavy item)
         // Jenis item bukan item perishable sehingga waktu hangus diset sembarang
-    createPesanan(&pesanan2, 2, lokasiB, lokasiC, 'h', -99);
+    createPesanan(&pesanan2, 2, lokasiB, lokasiC, 'H', -99);
     printf("Pesanan 2:\n");
     displayPesanan(pesanan2);
     printf("\n");
@@ -47,7 +49,7 @@ int main(){
         // Lokasi drop off = lokasiA
         // Jenis item = 'p'     (Perishable item)
         // Waktu hangus = 5
-    createPesanan(&pesanan3, 3, lokasiC, lokasiA, 'p', 5);
+    createPesanan(&pesanan3, 3, lokasiC, lokasiA, 'P', 5);
     printf("Pesanan 3:\n");
     displayPesanan(pesanan3);
     printf("\n");
@@ -61,6 +63,7 @@ int main(){
     pushBag(&b, pesanan1);
     pushBag(&b, pesanan2);
     pushBag(&b, pesanan3);
+    sleep(2);
     printf("Apakah bag penuh? \n");
     if(isBagFull(b)){
         printf("yes\n");
@@ -68,6 +71,7 @@ int main(){
     printf("\nMeningkatkan kapasitas tas...\n");
     increaseMaxCapacity(&b);
     printf("Kapasitas tas saat ini : %d", bagCapacity(b));
+    sleep(1);
     printf("Apakah bag penuh?\n");
     if(isBagFull(b)){
         printf("yes\n");
@@ -75,5 +79,16 @@ int main(){
     printf("\nMengeluarkan pesanan teratas...\n");
     popBag(&b, &curPesanan);
     displayPesanan(curPesanan);
+    sleep(1);
+    printf("Mengurangi waktu sebanyak 5\n");
+    reducePersihablesTimeBag(&b, 5);
+    printf("\nMenghapus item perishable yang sudah hangus");
+    deletePershablesFromBag(&b);
+    printf("Mengeluarkan pesanan yang ada\n");
+    while(!isBagEmpty(b)){
+        popBag(&b, &curPesanan);
+        displayPesanan(curPesanan);
+        printf("\n");
+    }
 
 }
