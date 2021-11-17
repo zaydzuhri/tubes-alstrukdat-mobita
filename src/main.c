@@ -52,6 +52,7 @@ int main() {
     printf("\\____/  \\____/        /_____/ /___/  /_/    /_/  |_|\n\n");
     printf("           Bantu Mobita mengantarkan\n        pesanan-pesanan usaha orang tuanya!\n");
     printf("===================================================\n");
+    printf("||                                               ||\n");
     printf("||                 MENU UTAMA                    ||\n");
     printf("||                                               ||\n");
     printf("||                1. NEW_GAME                    ||\n");
@@ -80,7 +81,7 @@ int main() {
         createInProgressList(&inProgress);
         CreateInventory(&inventory);
 
-        readConfig("config.txt", &locList, &mapRows, &mapCols, &adjMatrix, &dafPesananBefore);
+        readConfig(currentWord.contents, &locList, &mapRows, &mapCols, &adjMatrix, &dafPesananBefore);
 
         getLocationFromList(locList, &currentLoc, '8');
         gameLoop = true;
