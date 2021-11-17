@@ -128,7 +128,7 @@ int main() {
             pick_up(&bag, &toDo, &inProgress, currentLoc, &heavyItemsAmount);
 
         } else if (isSameString(currentWord, "DROP_OFF")) {
-            drop_off(&bag, currentLoc, &inProgress, &heavyItemsAmount, &money, &speedBoostDur,&amountDropped);
+            drop_off(&bag, currentLoc, &inProgress, &heavyItemsAmount, &money, &speedBoostDur, &amountDropped);
 
         } else if (isSameString(currentWord, "TO_DO")) {
             displayToDoList(toDo);
@@ -137,10 +137,15 @@ int main() {
             displayInProgressList(inProgress);
 
         } else if (isSameString(currentWord, "BUY")) {
-            displayShop(&inventory, &money);
+            if (currentLoc.locName == '8') {
+                displayShop(&inventory, &money);
+            } else {
+                printf("Command ini hanya dapat dipanggil di Headquarters.\n");
+            }
 
         } else if (isSameString(currentWord, "INVENTORY")) {
             displayInventory(&inventory);
+            useGadget(&inventory, dafPesananAfter, &bag, mapRows, mapCols, &time, locList, &currentLoc, adjMatrix, toDo, &inProgress);
 
         } else if (isSameString(currentWord, "HELP")) {
             help();
@@ -148,7 +153,7 @@ int main() {
         } else if (isSameString(currentWord, "EXIT")) {
             printf("Apakah Anda yakin ingin meninggalkan game? Sesi ini tidak akan tersimpan. (y/n): ");
             startWord();
-            while(!isSameString(currentWord,"y") && !isSameString(currentWord, "n")){
+            while (!isSameString(currentWord, "y") && !isSameString(currentWord, "n")) {
                 printf("Command salah, silahkan ulangi.\n");
                 startWord();
             }
@@ -163,7 +168,7 @@ int main() {
         timeUpdateToDoList(&toDo, &dafPesananBefore, &dafPesananAfter, time);
         removeExpiredPerishables(&inProgress);
 
-        if (isDaftarPesananEmpty(dafPesananBefore) && isToDoListEmpty(toDo) && isInProgressListEmpty(inProgress)){
+        if (isDaftarPesananEmpty(dafPesananBefore) && isToDoListEmpty(toDo) && isInProgressListEmpty(inProgress)) {
             printf("░█████╗░░█████╗░███╗░░██╗░██████╗░██████╗░░█████╗░████████╗██╗░░░██╗██╗░░░░░░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗\n");
             printf("██╔══██╗██╔══██╗████╗░██║██╔════╝░██╔══██╗██╔══██╗╚══██╔══╝██║░░░██║██║░░░░░██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝\n");
             printf("██║░░╚═╝██║░░██║██╔██╗██║██║░░██╗░██████╔╝███████║░░░██║░░░██║░░░██║██║░░░░░███████║░░░██║░░░██║██║░░██║██╔██╗██║╚█████╗░\n");
@@ -172,7 +177,7 @@ int main() {
             printf("░╚════╝░░╚════╝░╚═╝░░╚══╝░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░\n");
             printf("Kamu sudah berhasil membantu Mobita mengantarkan seluruh pesanan usaha orang tuanya! \n");
             sleep(1);
-            while(LOC_NAME(currentLoc) != '8'){
+            while (LOC_NAME(currentLoc) != '8') {
                 printf("Kembali ke Headquarters untuk menyelesaikan game ini !\n");
                 move(locList, adjMatrix, &currentLoc, heavyItemsAmount, &speedBoostDur, &time, &inProgress);
             }

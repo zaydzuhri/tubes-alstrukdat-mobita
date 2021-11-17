@@ -8,22 +8,22 @@ Created at: 17/10/2019
 #ifndef GADGET_H
 #define GADGET_H
 
-#include "listpos.h"
-#include "pesanan.h"
+#include "bag.h"
 #include "boolean.h"
 #include "daftarpesanan.h"
-#include "bag.h"
-#include "location.h"
-#include "listdinloc.h"
-#include "todolist.h"
 #include "inprogresslist.h"
+#include "listdinloc.h"
+#include "listpos.h"
+#include "location.h"
 #include "map.h"
+#include "pesanan.h"
+#include "todolist.h"
 
 typedef int Gadget;
 typedef ListPos GadgetList;
 
 /* SELEKTOR */
-char* getGadgetName(Gadget g);
+char *getGadgetName(Gadget g);
 // mengembalikan nama gadget
 
 int getHargaGadget(Gadget g);
@@ -33,7 +33,6 @@ int getHargaGadget(Gadget g);
 void CreateInventory(GadgetList *IG);
 // I.S. IG sembarang
 // F.S. IG terdefinisi, isinya kosong
-
 
 boolean hasGadget(GadgetList IG, Gadget g);
 /* menghasilkan true jika player memiliki gadget g
@@ -52,7 +51,7 @@ void useGadget(GadgetList *IG, DaftarPesanan dp, Bag *b, int mapRows, int mapCol
 // I.S. IG, g terdefinisi
 /* F.S. jika g ada pada IG, g dihapus dari IG, g menjadi aktif, 
     jika tidak ada, keluarkan pesan gagal*/
-    
+
 void displayShop(GadgetList *IG, int *money);
 // I.S. command BUY dipanggil
 // F.S. Uang dan gadget yang tersedia ditampilkan
@@ -63,7 +62,6 @@ void buyGadget(GadgetList *IG, int *money);
     jika input valid dan inventory tidak penuh, gadget terbeli
     jika tidak, program mengeluarkan pesan gagal dan gadget tidak terbeli */
 
-
 void displayInventory(GadgetList *IG);
 // I.S. command INVENTORY dipanggil
 /* F.S. Menampilkan inventory, lalu program meminta input
@@ -71,7 +69,7 @@ void displayInventory(GadgetList *IG);
     jika berhasil, program akan menampilkan pesan berhasil,
     jika gagal, program akan menampilkan pesan gagal*/
 
-void kainEffect(DaftarPesanan dp,Bag *b, InProgressList *ipl);
+void kainEffect(DaftarPesanan dp, Bag *b, InProgressList *ipl);
 // I.S. Kain Pembungkus Waktu dipilih dalam prosedur useGadget
 /* F.S. Jika item paling atas dalam tas ialah perishible item, waktu hangusnya kembali ke semula */
 
@@ -79,7 +77,7 @@ void pembesarEffect(Bag *b);
 // I.S. Senter Pembesar dipilih dalam prosedur useGadget
 /* F.S. Jika dua kali kapasitas tas <= kapasitas maksimum, kapasitas tas dikali 2 */
 
-void pintuEffect(int mapRows, int mapCols, int time, ListLoc locL, Location *curLoc, Matrix adjM, ToDoList todoL, InProgressList progL);
+void pintuEffect(int mapRows, int mapCols, int time, ListLoc locL, Location *curLoc, Matrix adjM, ToDoList todoL, Bag bag);
 // I.S. Pintu Kemana Saja dipilih dalam prosedur useGadget
 /* F.S. Berhasil berpindah ke lokasi lain, waktu tidak bertambah */
 
