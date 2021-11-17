@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, int *speedBoostDur, int *time, InProgressList *inProgress);
+void move(ListLoc locList, Matrix adjMat, Location *currentLoc, int heavyItems, int *speedBoostDur, int *time, InProgressList *inProgress, Bag *bag);
 
 void pick_up(Bag *bag, ToDoList *tdlist, InProgressList *inplist, Location l, int *heavyItemsAmout);
 
