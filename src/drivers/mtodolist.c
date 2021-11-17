@@ -1,5 +1,4 @@
 // Driver ADT ToDoList
-// Compile command : gcc -o mtodolist.exe mtodolist.c todolist.c daftarpesanan.c pesanan.c linkedlist.c node.c queue.c location.c point.c
 
 #include "todolist.h"
 

@@ -1,5 +1,4 @@
 /* Driver ADT Pesanan */
-// Compile command : gcc -o mpesanan.exe mpesanan.c pesanan.c location.c point.c
 
 #include "pesanan.h"
 #include <stdio.h>

@@ -1,5 +1,4 @@
 // Driver ADT Queue
-// Compile command : gcc -o mqueue.exe mqueue.c queue.c pesanan.c location.c point.c
 
 #include "queue.h"
 #include <stdio.h>
