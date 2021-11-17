@@ -44,6 +44,7 @@ int main() {
     Location currentLoc;
 
     /*ALGORITMA*/
+    system("color F0");
     printf("           Selamat datang di permainan\n");
     printf("_______________       _____________________________ \n");
     printf("__  ____/_  __ \\      ___  __ )___  _/__  __/__    |\n");

@@ -61,7 +61,7 @@ void displayMap(int mapRows, int mapCols, ListLoc locL, Location curLoc, Matrix 
     for (i = 0; i < NEFF(locL); i++) {
         ELMT(M, LOC_ROW(LOC(locL,i)),LOC_COL(LOC(locL,i))) = (int) LOC_NAME(LOC(locL,i));
     }
-    
+
     for (i = 0; i < ROWS(M); i++) {
         for (j = 0; j < COLS(M); j++) {
 
@@ -69,23 +69,28 @@ void displayMap(int mapRows, int mapCols, ListLoc locL, Location curLoc, Matrix 
                 print_yellow((char) ELMT(M,i,j));
             }
 
-            else if (isInTodolist(todoL, (char) ELMT(M,i,j))) {
-                print_red((char) ELMT(M,i,j));
-            }
-
             else if (!isBagEmpty(bag) && (int) LOC_NAME(DROP_OFF_LOCATION(TOP(bag))) == ELMT(M,i,j)) {
                 print_blue((char) ELMT(M,i,j));
+            }
+
+            else if (isInTodolist(todoL, (char) ELMT(M,i,j))) {
+                print_red((char) ELMT(M,i,j));
             }
 
             else if (isInListLoc(adjLocList, (char) ELMT(M,i,j))){
                 print_green((char) ELMT(M,i,j));
             }
 
+            else if (ELMT(M,i,j) == (int) ' '){
+                print_white((char) ELMT(M,i,j));
+            }
+
             else {
-                printf("%c", (char) ELMT(M,i,j));
+                print_black((char) ELMT(M,i,j));
             }
         }
         printf("\n");
     }
+    print_normal();
     printf("\n");
 };
