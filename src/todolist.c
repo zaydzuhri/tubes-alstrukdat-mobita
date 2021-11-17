@@ -17,7 +17,7 @@ void timeUpdateToDoList(ToDoList *tdl, DaftarPesanan *dp1, DaftarPesanan *dp2, i
     /* ALGORITMA */
     allPpAtCurrentTimeInserted = false;
     while (!isDaftarPesananEmpty(*dp1) && !allPpAtCurrentTimeInserted) {
-        if (WAKTU_MASUK(HEAD(*dp1)) == waktuSekarang) {
+        if (WAKTU_MASUK(HEAD(*dp1)) <= waktuSekarang) {
             dequeueDaftarPesanan(dp1, &pp);
             insertLastLinkedList(tdl, PESANAN(pp));
             enqueueDaftarPesanan(dp2, pp);
@@ -90,7 +90,7 @@ void displayToDoList(ToDoList tdl) {
     }
 }
 
-boolean isToDoListEmpty(ToDoList tdl){
-/* Mengembalikan true jika tdl kosong, false jika tidak kosong */
+boolean isToDoListEmpty(ToDoList tdl) {
+    /* Mengembalikan true jika tdl kosong, false jika tidak kosong */
     return isLinkedListEmpty(tdl);
 }
