@@ -167,7 +167,6 @@ int main() {
         }
 
         timeUpdateToDoList(&toDo, &dafPesananBefore, &dafPesananAfter, time);
-        removeExpiredPerishables(&inProgress);
 
         if (isDaftarPesananEmpty(dafPesananBefore) && isToDoListEmpty(toDo) && isInProgressListEmpty(inProgress)) {
             printf("░█████╗░░█████╗░███╗░░██╗░██████╗░██████╗░░█████╗░████████╗██╗░░░██╗██╗░░░░░░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗\n");
