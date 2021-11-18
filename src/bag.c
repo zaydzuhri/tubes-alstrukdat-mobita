@@ -33,8 +33,7 @@ void pushBag(Bag *b, ElTypeBag val) {
     /* Menambahkan val sebagai elemen Bag b */
     /* I.S. b mungkin kosong, tabel penampung elemen bag TIDAK penuh */
     /* F.S. val menjadi TOP yang baru,IDX_TOP bertambah 1 */
-    IDX_TOP(*b)
-    ++;
+    IDX_TOP(*b)++;
     TOP(*b) = val;
 }
 
@@ -44,8 +43,7 @@ void popBag(Bag *b, ElTypeBag *val) {
     /* I.S. b tidak mungkin kosong */
     /* F.S. val adalah nilai elemen TOP yang lama, IDX_TOP berkurang 1 */
     *val = TOP(*b);
-    IDX_TOP(*b)
-    --;
+    IDX_TOP(*b)--;
 }
 
 int bagCapacity(Bag b){
