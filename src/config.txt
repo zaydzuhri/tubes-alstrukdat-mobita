@@ -45,6 +45,6 @@ Q 10 3
 3 F E N
 10 P Q P 20
 5 G N P 10
-8 O P V
-8 Q L V
+8 O P N
+8 Q L N
 .
