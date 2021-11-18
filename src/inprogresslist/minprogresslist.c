@@ -34,7 +34,7 @@ int main() {
         printf("Waktu: %d\n", waktu);
 
         // Mengurangi waktu hangus setiap perishable item di In Progress List sebanyak 1
-        reduceAllPerishablesTime(&ipl);
+        reduceAllPerishablesTime(&ipl, 1);
 
         // Menghapus seluruh perishable item di In Progress List yang waktu hangusnya mencapai 0
         removeExpiredPerishables(&ipl);

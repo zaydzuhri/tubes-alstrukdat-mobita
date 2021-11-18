@@ -6,7 +6,7 @@
 #define LINKEDLIST_H
 
 #include "../boolean/boolean.h"
-#include "../node/node.h"
+#include "node.h"
 
 typedef Address LinkedList;
 
