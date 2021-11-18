@@ -16,11 +16,11 @@
 | Nama | NIM | Pembagian Tugas |
 |:-----:|:-----:|:-----------------:|
 | Yoseph Alexander Siregar | 13520141 | Efek Ability, Command Pick Up & Drop Off, Main menu, mekanisme waktu dan end game, laporan|
-| Hilda Carissa Widelia | 13520164 | Bag, Command Pick Up & Drop Off, Main Menu dan end game (ascii art), readme, laporan |
-|Muhammad Fahmi Irfan| 13520152 | <isi pembagian tugas>|
+| Hilda Carissa Widelia | 13520164 | Bag, Command Pick Up & Drop Off, Main Menu dan end game (ascii art), readme, makefile, laporan |
+|Muhammad Fahmi Irfan| 13520152 | ADT List Statis, ADT Gadget (Gadget, Inventory Gadget, pembelian dan penggunaan gadget), ADT Mesin Kata dan Mesin Karakter|
 |Zayd Muhammad Kawakibi Zuhri|13520144|Pembacaan file configurasi, ADT Location, ListLocation, WordMachine, Command MOVE dan HELP|
 |Ignasius Ferry Priguna|13520126|ADT Daftar Pesanan, To Do List, In Progress List, Queue, Linked List, Pesanan (program + laporan)|
-|Daffa Romyz Aufa|13520162|<isi pembagian tugas>|
+|Daffa Romyz Aufa|13520162|Mekanisme waktu, efek heavy item pada mekanisme waktu, efek speedboost pada mekanisme waktu, Command MAP|
 
 ## Daftar Fitur & Status Pengerjaan
 |Nama Fitur|Status Pengerjaan|
