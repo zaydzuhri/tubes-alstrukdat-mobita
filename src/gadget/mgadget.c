@@ -17,5 +17,5 @@ int main(){
 
     displayShop(&Inventory, &money);
     displayInventory(&Inventory);
-    useGadget(&Inventory, dp, &b, mapRows, mapCols, &time, locL, &curLoc, adjM, todoL, progL);
+    useGadget(&Inventory, dp, &b, mapRows, mapCols, &time, locL, &curLoc, adjM, todoL, &progL);
 }
