@@ -6,13 +6,11 @@
 ## Cara kompilasi program
 * Clone repository github ini
 * Jalankan terminal pada folder src
-* ketik "gcc *.c -o main"
-* main dapat diganti dengan nama program yang diinginkan sesuai kemauan
+* ketik "make"
 
 ## Cara menjalankan program
 * Di terminal yang sama, ketik .\main
-* main disesuaikan dengan nama program yang diketik setelah -o seperti pada cara kompilasi diatas
-* Selamat menjadi Mobita!
+* Selamat menjadi (membantu) Mobita!
 
 ## Pembagian Tugas
 | Nama | NIM | Pembagian Tugas |
