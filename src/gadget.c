@@ -60,7 +60,7 @@ void addGadget(GadgetList *IG, Gadget g) {
     // F.S. g ditambahkan ke inventory
     /* KAMUS */
     /* ALGORITMA */
-    insertLastListPos(IG, g);
+    insertListPos(IG, g);
     printf("%s berhasil ditambahkan\n", getGadgetName(g));
 }
 
@@ -79,7 +79,9 @@ void useGadget(GadgetList *IG, DaftarPesanan dp, Bag *b, int mapRows, int mapCol
     jika tidak ada, keluarkan pesan gagal*/
     /* KAMUS */
     int idx;
+    boolean fail;
     /* ALGORITMA */
+    fail = false;
     printf("Gadget mana yang ingin dipakai? (ketik 0 jika ingin kembali)\n\nENTER COMMAND : ");
 
     startWord();
@@ -101,9 +103,10 @@ void useGadget(GadgetList *IG, DaftarPesanan dp, Bag *b, int mapRows, int mapCol
                 break;
             default:
                 printf("Gadget tidak ditemukan\n");
+                fail = true;
                 break;
             }
-            printf("%s berhasil dipakai\n", getGadgetName(ELMTListPos(*IG, idx)));
+            if(!fail) printf("%s berhasil dipakai\n", getGadgetName(ELMTListPos(*IG, idx)));
             removeGadget(IG, idx);
         } else {
             printf("Gadget tidak ditemukan.\n");
