@@ -16,8 +16,6 @@ char *getGadgetName(Gadget g) {
         return "Pintu Kemana Saja";
     case (4):
         return "Mesin Waktu";
-    case (5):
-        return "Senter Pengecil";
     default:
         return "Bukan Gadget";
     }
@@ -36,8 +34,6 @@ int getHargaGadget(Gadget g) {
         return 1500;
     case (4):
         return 3000;
-    case (5):
-        return 800;
     default:
         return 0;
     }
@@ -104,7 +100,8 @@ void useGadget(GadgetList *IG, DaftarPesanan dp, Bag *b, int mapRows, int mapCol
                 mesinWaktuEffect(time);
                 break;
             default:
-                printf("Senter pengecilmu tiba-tiba hilang!\n");
+                printf("Gadget tidak ditemukan\n");
+                break;
             }
             printf("%s berhasil dipakai\n", getGadgetName(ELMTListPos(*IG, idx)));
             removeGadget(IG, idx);
@@ -127,7 +124,7 @@ void displayShop(GadgetList *IG, int *money) {
     /* ALGORITMA */
     printf("Uang Anda sekarang: %d Yen\n", *money);
     printf("Gadget yang tersedia:\n");
-    for (i = 1; i <= 5; i++) {
+    for (i = 1; i <= 4; i++) {
         printf("%d. %s (%d Yen)\n", i, getGadgetName(i), getHargaGadget(i));
     }
     buyGadget(IG, money);
@@ -147,7 +144,7 @@ void buyGadget(GadgetList *IG, int *money) {
     startWord();
     if (currentWord.length == 1) {
         g = currentWord.contents[0] - '0';
-        if (g <= 0 || g > 5) {
+        if (g <= 0 || g > 4) {
             printf("Invalid Input!\n");
         } else if (isFullListPos(*IG)) {
             printf("Inventory penuh, pembelian gagal\n");
