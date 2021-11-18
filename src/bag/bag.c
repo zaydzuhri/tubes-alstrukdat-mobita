@@ -1,5 +1,6 @@
 #include "bag.h"
 #include "../boolean/boolean.h"
+#include <stdio.h>
 
 /* *** Konstruktor/Kreator *** */
 void CreateBag(Bag *b) {
@@ -74,6 +75,7 @@ void deletePerishablesFromBag(Bag *b){
     /* I.S. Bag b terdefinisi */
     /* F.S. Pesanan di Bag b yang berupa perishable item dan sudah habis waktunya akan hilang */
     Bag tempBag;
+    CreateBag(&tempBag);
     while(!isBagEmpty(*b)){
         Pesanan tempPesanan;
         popBag(b, &tempPesanan);
